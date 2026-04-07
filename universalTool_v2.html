@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SEO Prompt Tool</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #ffffff;
+  --surface: #F7F8FA;
+  --border: #E5E7EB;
+  --text: #111827;
+  --muted: #9CA3AF;
+  --blue: #2563EB;
+  --blue-lt: #EFF6FF;
+  --green: #16A34A;
+  --green-lt: #F0FDF4;
+  --red: #DC2626;
+  --red-lt: #FEF2F2;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--surface);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 20px 16px 40px;
+}
+
+.app { width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 10px; }
+
+/* Header */
+.hdr { display: flex; align-items: center; justify-content: space-between; padding: 0 0 6px; }
+.hdr h1 { font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 800; }
+.hdr p { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.hdr-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* Card */
+.card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.row { padding: 11px 13px; }
+.row + .row { border-top: 1px solid var(--border); }
+
+/* Label */
+.lbl { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 7px; }
+
+/* Upload */
+.upload-zone { border: 1.5px dashed var(--border); border-radius: 8px; padding: 14px 12px; text-align: center; cursor: pointer; transition: all .15s; }
+.upload-zone:hover, .upload-zone.drag { border-color: var(--blue); background: var(--blue-lt); }
+.upload-zone input { display: none; }
+.up-title { font-size: 12.5px; font-weight: 600; color: #374151; margin-top: 5px; }
+.up-sub { font-size: 11px; color: var(--muted); }
+
+/* Banner */
+.banner { display: none; font-size: 11.5px; padding: 7px 10px; border-radius: 7px; align-items: center; gap: 7px; margin-top: 8px; }
+.banner.ok { display: flex; background: var(--green-lt); color: var(--green); }
+.banner.err { display: flex; background: var(--red-lt); color: var(--red); }
+
+/* Inputs */
+input, select, textarea {
+  font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text);
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 10px; width: 100%; outline: none; transition: border-color .15s;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--blue); background: #fff; }
+input::placeholder, textarea::placeholder { color: var(--muted); font-style: italic; }
+input:disabled, select:disabled { opacity: .4; cursor: not-allowed; }
+select {
+  appearance: none; -webkit-appearance: none; padding-right: 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 9px center;
+}
+
+/* Keyword input + dropdown */
+.kw-combo { display: flex; gap: 8px; align-items: stretch; }
+.kw-input {
+  flex: 1;
+  min-width: 0;
+}
+.kw-open-btn {
+  width: 44px; min-width: 44px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; cursor: pointer; transition: all .15s;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted);
+}
+.kw-open-btn:hover { border-color: var(--blue); background: #fff; color: var(--blue); }
+.kw-open-btn:disabled { opacity: .4; cursor: not-allowed; }
+.kw-drop {
+  margin-top: 8px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  max-height: 220px;
+  overflow-y: auto;
+  box-shadow: 0 10px 24px rgba(17,24,39,.08);
+}
+.kw-drop-item {
+  padding: 10px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  border-bottom: 1px solid #F3F4F6;
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.kw-drop-item:last-child { border-bottom: none; }
+.kw-drop-item:hover { background: var(--blue-lt); }
+.kw-drop-item small { color: var(--muted); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+.kw-drop-empty { padding: 12px; font-size: 12px; color: var(--muted); }
+
+/* Chip */
+.chip { display: inline-flex; align-items: center; gap: 5px; background: var(--blue-lt); color: var(--blue); font-size: 11px; font-weight: 600; padding: 2px 8px 2px 9px; border-radius: 20px; margin-top: 6px; }
+.chip-x { background: none; border: none; color: var(--blue); cursor: pointer; font-size: 15px; line-height: 1; padding: 0; opacity: .55; }
+
+/* URL preview */
+.url-prev { font-size: 10.5px; color: var(--blue); word-break: break-all; margin-top: 5px; }
+
+/* Tabs */
+.tabs { display: flex; gap: 3px; background: var(--surface); border-radius: 8px; padding: 3px; }
+.tab { flex: 1; padding: 6px 3px; border: none; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 600; color: var(--muted); background: transparent; cursor: pointer; transition: all .15s; }
+.tab.on { background: #fff; color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+
+/* Prompt */
+textarea#prompt-out {
+  min-height: 190px; resize: vertical; line-height: 1.7; font-size: 12.5px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 10px 11px; width: 100%; color: var(--text); outline: none;
+}
+textarea#prompt-out:focus { border-color: var(--blue); background: #fff; }
+textarea#prompt-out.ph { color: var(--muted); font-style: italic; }
+
+/* Buttons */
+.btn-row { display: flex; gap: 6px; align-items: center; margin-bottom: 8px; }
+.btn { padding: 6px 13px; border: none; border-radius: 7px; font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 600; cursor: pointer; transition: all .15s; }
+.btn-blue { background: var(--blue); color: #fff; }
+.btn-blue:hover { background: #1D4ED8; }
+.btn-blue.ok { background: var(--green); }
+.btn-outline { background: transparent; color: #6B7280; border: 1px solid var(--border); }
+.btn-outline:hover { background: var(--surface); }
+
+/* ── MODAL ─────────────────────────────────────────────────────── */
+.modal-bg {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.4); z-index: 1000;
+  align-items: flex-end; justify-content: center;
+  backdrop-filter: blur(3px);
+}
+.modal-bg.open { display: flex; }
+
+.modal {
+  background: #fff; border-radius: 20px 20px 0 0;
+  width: 100%; max-width: 540px;
+  height: 78vh;
+  display: flex; flex-direction: column;
+  animation: slideUp .22s cubic-bezier(.22,1,.36,1);
+  overflow: hidden;
+}
+@keyframes slideUp {
+  from { transform: translateY(80px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* Modal drag handle */
+.modal-handle {
+  width: 36px; height: 4px; background: var(--border);
+  border-radius: 4px; margin: 10px auto 0;
+  flex-shrink: 0;
+}
+
+/* Modal header */
+.modal-head {
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.modal-head-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.modal-title { font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 800; }
+.modal-count-badge {
+  font-size: 11px; font-weight: 600; color: var(--muted);
+  background: var(--surface); padding: 2px 8px; border-radius: 20px;
+  border: 1px solid var(--border);
+}
+.modal-close {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; width: 30px; height: 30px;
+  font-size: 18px; cursor: pointer; color: #6B7280;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .12s;
+}
+.modal-close:hover { background: var(--border); }
+
+/* Modal search */
+.modal-search-wrap { position: relative; }
+.modal-search-icon {
+  position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+  color: var(--muted); pointer-events: none;
+}
+#modal-search {
+  padding-left: 32px; font-size: 13px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 9px;
+}
+#modal-search:focus { border-color: var(--blue); background: #fff; }
+
+/* Modal body — scrollable list */
+.modal-body { flex: 1; overflow-y: auto; }
+
+/* Category group */
+.modal-cat {
+  position: sticky; top: 0; z-index: 2;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 14px 5px;
+  display: flex; align-items: center; gap: 8px;
+}
+.modal-cat-name {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em;
+  color: var(--muted); flex: 1;
+}
+.modal-cat-url {
+  font-size: 9.5px; color: var(--blue);
+  max-width: 200px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* Keyword row */
+.modal-kw {
+  padding: 11px 14px;
+  font-size: 13.5px; line-height: 1.3;
+  cursor: pointer; transition: background .1s;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid #F9FAFB;
+}
+.modal-kw:hover { background: var(--blue-lt); }
+.modal-kw.sel {
+  background: var(--blue-lt);
+  color: var(--blue); font-weight: 600;
+}
+.modal-kw-check {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--blue); display: none;
+  align-items: center; justify-content: center; flex-shrink: 0;
+}
+.modal-kw.sel .modal-kw-check { display: flex; }
+
+/* Empty modal state */
+.modal-empty { padding: 32px 20px; text-align: center; color: var(--muted); font-size: 13px; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Header -->
+  <div class="hdr">
+    <div>
+      <h1>SEO Prompt Tool</h1>
+      <p id="brand-sub">Upload a keyword sheet to begin</p>
+    </div>
+    <div class="hdr-icon">
+      <svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    </div>
+  </div>
+
+  <!-- Upload -->
+  <div class="card">
+    <div class="row">
+      <div class="lbl">① Keyword Sheet</div>
+      <div class="upload-zone" id="upload-zone"
+        onclick="document.getElementById('f-in').click()"
+        ondragover="event.preventDefault();this.classList.add('drag')"
+        ondragleave="this.classList.remove('drag')"
+        ondrop="onDrop(event)">
+        <input type="file" id="f-in" accept=".xlsx,.xls" onchange="handleFile(this.files[0])"/>
+        <svg width="20" height="20" fill="none" stroke="#9CA3AF" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+        <div class="up-title">Drop .xlsx or tap to browse</div>
+        <div class="up-sub">Supports standard keyword research sheets</div>
+      </div>
+      <div class="banner" id="banner"></div>
+    </div>
+  </div>
+
+  <!-- Keyword + URL -->
+  <div class="card">
+    <div class="row">
+      <div class="lbl">② Keyword</div>
+      <div class="kw-combo">
+        <input
+          id="kw-in"
+          class="kw-input"
+          type="text"
+          disabled
+          placeholder="Upload a sheet first…"
+          oninput="buildDrop(this.value)"
+          onfocus="buildDrop(this.value)"
+          onkeydown="handleKeywordKeydown(event)"
+          autocomplete="off"
+        />
+        <button class="kw-open-btn" id="kw-open-btn" disabled onclick="openModal()" title="Browse keywords" aria-label="Browse keywords">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="m19 9-7 7-7-7"/></svg>
+        </button>
+      </div>
+      <div id="kw-drop" class="kw-drop" style="display:none;"></div>
+      <div id="kw-chip" style="display:none;">
+        <span class="chip"><span id="chip-kw"></span><button class="chip-x" onclick="clearKw()">×</button></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="lbl">③ Target URL</div>
+      <select id="url-sel" disabled onchange="onUrlChange()">
+        <option value="">— Auto-selected on keyword pick —</option>
+      </select>
+      <div id="url-prev" class="url-prev" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- Prompt -->
+  <div class="card">
+    <div class="row">
+      <div class="lbl">④ Prompt Type</div>
+      <div class="tabs" id="tab-bar">
+        <button class="tab on" data-t="smo">SMO</button>
+        <button class="tab" data-t="blog">Blog</button>
+        <button class="tab" data-t="micro">Micro</button>
+        <button class="tab" data-t="ad">Ad</button>
+        <button class="tab" data-t="image">Image</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="btn-row">
+        <span class="lbl" style="flex:1;margin:0;align-self:center;">Prompt <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#9CA3AF;">· editable</span></span>
+        <button class="btn btn-outline" onclick="resetPrompt()">Reset</button>
+        <button class="btn btn-blue" id="copy-btn" onclick="doCopy()">Copy</button>
+      </div>
+      <textarea id="prompt-out" class="ph" readonly>Upload a keyword sheet and select a keyword to generate your prompt.</textarea>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── KEYWORD MODAL ─────────────────────────────────────────────── -->
+<div class="modal-bg" id="modal-bg" onclick="closeBgClick(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-head">
+      <div class="modal-head-top">
+        <span class="modal-title">Select Keyword</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="modal-count-badge" id="modal-count">0 keywords</span>
+          <button class="modal-close" onclick="closeModal()">×</button>
+        </div>
+      </div>
+      <div class="modal-search-wrap">
+        <span class="modal-search-icon">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.35-4.35"/></svg>
+        </span>
+        <input id="modal-search" placeholder="Search keywords…" oninput="renderModal(this.value)" autocomplete="off"/>
+      </div>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ── State ────────────────────────────────────────────────────────
+let kwData = [], urlList = [];
+let selItem = null, selUrl = '';
+let activeTab = 'smo';
+let brandName = 'Your Brand', rootUrl = '';
+
+// ── Prompt templates ─────────────────────────────────────────────
+function getPrompt(kw, url) {
+  const b = brandName, r = rootUrl;
+  const T = {
+    smo:   () => `Create an SMO post. The keyword is: ${kw}\n\nPost must have a heading and content of 40 to 60 words, SEO optimized.\n\nAdd this line at the end:\nVisit our website: ${url}`,
+    blog:  () => `Write an SEO-friendly blog post with:\n- SEO optimized meta title: 50 to 60 characters\n- Meta description\n- Content: 1100+ words\n- Keyword: "${kw}"\n\nStrictly within the 2nd to 5th lines, bind this link on the given keyword:\nLink: ${url}\nNote: The keyword is not a person.\n\nAdd "${b}" naturally near the bottom of the blog and bind this link on that keyword:\nLink: ${r}`,
+    micro: () => `Create a micro blog. The keyword is: ${kw}\n\nPost must have a heading and content of 205 to 250 words.\nBind this link on the keyword: ${url}\nThe keyword must appear in the center paragraph of the content.\n\nGUIDELINE: Output in plain text only. Bind (Markdown) the link on the given keyword. If you use any HTML tag, regenerate the response.`,
+    ad:    () => `Create an ad title and description of around 50 to 70 words.\nKeyword: "${kw}"\n\nAdd this at the bottom:\nPlease visit our website: ${url}`,
+    image: () => `Create an Instagram post-size image for ${b} with:\n- Company logo\n- Keyword-related image\n- Keyword: "${kw}"\n- Website: ${url}\n- Keyword-related heading\n- Short description\n\nVisit our website: ${url}`,
+  };
+  return (T[activeTab] || T.smo)();
+}
+
+// ── Brand helpers ────────────────────────────────────────────────
+function parseBrand(url) {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, '');
+    const name = host.split('.')[0];
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  } catch { return 'Your Brand'; }
+}
+function parseRoot(url) {
+  try { return new URL(url).origin + '/'; } catch { return url; }
+}
+
+// ── File handling ────────────────────────────────────────────────
+function onDrop(e) {
+  e.preventDefault();
+  document.getElementById('upload-zone').classList.remove('drag');
+  if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+}
+function handleFile(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try { parseWB(XLSX.read(ev.target.result, { type:'array' }), file.name); }
+    catch(e) { showBanner('Could not read: ' + e.message, true); }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+// ── Parser ───────────────────────────────────────────────────────
+const URL_RE = /^https?:\/\/\S+/i;
+
+function parseWB(wb, fname) {
+  let best = [];
+  wb.SheetNames.forEach(name => {
+    const rows = XLSX.utils.sheet_to_json(wb.Sheets[name], { header:1, defval:'' });
+    const p = parseSheet(rows);
+    if (p.length > best.length) best = p;
+  });
+  if (!best.length) { showBanner('No keywords found — check sheet structure.', true); return; }
+
+  kwData = best;
+  urlList = [...new Set(kwData.map(k => k.url))];
+  brandName = parseBrand(urlList[0] || '');
+  rootUrl   = parseRoot(urlList[0] || '');
+
+  rebuildUrlSel();
+  enableInputs();
+  document.getElementById('brand-sub').textContent = brandName + ' · ' + kwData.length + ' keywords across ' + urlList.length + ' pages';
+  showBanner('✓ Loaded ' + kwData.length + ' keywords from "' + fname + '"', false);
+  blankPrompt();
+}
+
+function parseSheet(rows) {
+  const result = [];
+  let curUrl = '', curCat = '';
+  rows.forEach(row => {
+    for (let ci = 0; ci < row.length; ci++) {
+      const cell = String(row[ci] || '').trim();
+      if (URL_RE.test(cell)) { curUrl = cell; curCat = slugToCat(cell); break; }
+    }
+    if (!curUrl) return;
+    const c0 = String(row[0] || '').trim();
+    const c1 = String(row[1] || '').trim();
+    if (/main keyword|keywords|sr\.|target page|page status|existing|homepage|category|ranking|difficulty|keyword research/i.test(c0 + c1)) return;
+    if (/^\d+$/.test(c0) && c1.length > 2 && !URL_RE.test(c1)) { result.push({ kw: c1.trim(), url: curUrl, cat: curCat }); return; }
+    if (c0.length > 3 && !/^\d+$/.test(c0) && !URL_RE.test(c0) && /\s/.test(c0)) result.push({ kw: c0.trim(), url: curUrl, cat: curCat });
+  });
+  return result;
+}
+
+function slugToCat(url) {
+  try {
+    const parts = new URL(url).pathname.replace(/^\/|\/$/g,'').split('/');
+    const last = parts.filter(p => p && p !== 'collections').pop() || '';
+    const slug = last.replace(/-\d+$/, '').replace(/-/g, ' ').trim();
+    if (!slug) return new URL(url).hostname.replace('www.','');
+    return slug.replace(/\b\w/g, c => c.toUpperCase());
+  } catch { return url; }
+}
+
+// ── UI helpers ───────────────────────────────────────────────────
+function showBanner(msg, isErr) {
+  const b = document.getElementById('banner');
+  b.textContent = msg;
+  b.className = 'banner ' + (isErr ? 'err' : 'ok');
+}
+
+function rebuildUrlSel() {
+  const s = document.getElementById('url-sel');
+  s.innerHTML = '<option value="">— Auto-selected on keyword pick —</option>';
+  urlList.forEach(u => { const o = document.createElement('option'); o.value = u; o.textContent = u; s.appendChild(o); });
+}
+
+function enableInputs() {
+  const kwInput = document.getElementById('kw-in');
+  kwInput.disabled = false;
+  kwInput.placeholder = 'Type or paste a keyword…';
+  document.getElementById('kw-open-btn').disabled = false;
+  document.getElementById('url-sel').disabled = false;
+}
+
+// ── MODAL ────────────────────────────────────────────────────────
+function openModal() {
+  if (!kwData.length) return;
+  document.getElementById('modal-search').value = '';
+  renderModal('');
+  document.getElementById('modal-bg').classList.add('open');
+  setTimeout(() => document.getElementById('modal-search').focus(), 250);
+}
+
+function closeModal() {
+  document.getElementById('modal-bg').classList.remove('open');
+}
+
+function closeBgClick(e) {
+  if (e.target === document.getElementById('modal-bg')) closeModal();
+}
+
+function renderModal(q) {
+  const q2 = (q || '').toLowerCase().trim();
+  const list = q2 ? kwData.filter(k => k.kw.toLowerCase().includes(q2)) : kwData;
+
+  document.getElementById('modal-count').textContent = list.length + ' keyword' + (list.length !== 1 ? 's' : '');
+
+  const body = document.getElementById('modal-body');
+
+  if (!list.length) {
+    body.innerHTML = '<div class="modal-empty">No keywords match your search.</div>';
+    return;
+  }
+
+  // Group by category
+  const cats = {};
+  list.forEach(k => { if (!cats[k.cat]) cats[k.cat] = []; cats[k.cat].push(k); });
+
+  body.innerHTML = Object.entries(cats).map(([cat, items]) => {
+    // Short URL for display
+    let shortUrl = '';
+    try { shortUrl = new URL(items[0].url).pathname.replace(/^\/collections\//,'').replace(/-\d+$/,'') || '/'; } catch {}
+
+    const rows = items.map(item => {
+      const isSel = selItem && selItem.kw === item.kw;
+      const safe = item.kw.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+      return `<div class="modal-kw${isSel ? ' sel' : ''}" onclick="pickKw('${safe}')">
+        <span>${item.kw}</span>
+        <span class="modal-kw-check">
+          <svg width="10" height="10" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+        </span>
+      </div>`;
+    }).join('');
+
+    return `<div class="modal-cat">
+      <span class="modal-cat-name">${cat}</span>
+      <span class="modal-cat-url">${shortUrl}</span>
+    </div>${rows}`;
+  }).join('');
+}
+
+// ── Keyword pick / typing ───────────────────────────────────────
+// ── Keyword dropdown ──────────────────────────────────────────────
+function getKeywordMatches(value) {
+  const typed = (value || '').trim().toLowerCase();
+  if (!typed) return kwData.slice(0, 40);
+  const starts = kwData.filter(k => k.kw.toLowerCase().startsWith(typed));
+  const contains = kwData.filter(k => !k.kw.toLowerCase().startsWith(typed) && k.kw.toLowerCase().includes(typed));
+  return [...starts, ...contains].slice(0, 40);
+}
+
+function buildDrop(value) {
+  const drop = document.getElementById('kw-drop');
+  const typed = (value || '').trim();
+  if (!kwData.length || document.getElementById('kw-in').disabled) { hideDrop(); return; }
+
+  const exactMatch = findKeywordMatch(typed);
+  if (exactMatch) applyKeywordState(exactMatch.kw, exactMatch.url, exactMatch);
+  else if (typed) applyKeywordState(typed, document.getElementById('url-sel').value || selUrl || urlList[0] || '');
+  else {
+    selItem = null;
+    selUrl = document.getElementById('url-sel').value || '';
+    document.getElementById('kw-chip').style.display = 'none';
+    blankPrompt();
+  }
+
+  const list = getKeywordMatches(typed);
+  if (!list.length) {
+    drop.innerHTML = '<div class="kw-drop-empty">No related keywords found.</div>';
+    drop.style.display = typed ? 'block' : 'none';
+    return;
+  }
+
+  drop.innerHTML = list.map(item => {
+    const safe = item.kw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const safeJs = item.kw.replace(/"/g,'\\"').replace(/'/g,"\\'");
+    let shortUrl = '';
+    try { shortUrl = new URL(item.url).pathname || '/'; } catch {}
+    return `<div class="kw-drop-item" onclick="pickKw('${safeJs}')"><span>${safe}</span><small>${shortUrl || item.cat || ''}</small></div>`;
+  }).join('');
+  drop.style.display = 'block';
+}
+
+function hideDrop() {
+  const drop = document.getElementById('kw-drop');
+  if (drop) drop.style.display = 'none';
+}
+
+function applyKeywordState(kw, url, matchedItem = null) {
+  const cleanKw = (kw || '').trim();
+  const kwInput = document.getElementById('kw-in');
+  kwInput.value = cleanKw;
+
+  if (!cleanKw) {
+    selItem = null;
+    selUrl = '';
+    document.getElementById('kw-chip').style.display = 'none';
+    document.getElementById('url-sel').value = '';
+    document.getElementById('url-prev').style.display = 'none';
+    blankPrompt();
+    return;
+  }
+
+  const finalUrl = url || document.getElementById('url-sel').value || selUrl || urlList[0] || '';
+  selItem = matchedItem || { kw: cleanKw, url: finalUrl, cat: '' };
+  selUrl = finalUrl;
+
+  document.getElementById('chip-kw').textContent = cleanKw;
+  document.getElementById('kw-chip').style.display = 'block';
+
+  if (finalUrl) {
+    document.getElementById('url-sel').value = finalUrl;
+    setUrlPrev(finalUrl);
+    brandName = parseBrand(finalUrl);
+    rootUrl = parseRoot(finalUrl);
+  }
+
+  if (selUrl) renderPrompt();
+  else blankPrompt();
+}
+
+function findKeywordMatch(value) {
+  const typed = (value || '').trim().toLowerCase();
+  if (!typed) return null;
+  return kwData.find(k => k.kw.toLowerCase() === typed) || null;
+}
+
+function handleKeywordTyping() {
+  buildDrop(document.getElementById('kw-in').value);
+}
+
+function handleKeywordKeydown(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const typed = document.getElementById('kw-in').value.trim();
+    const exactMatch = findKeywordMatch(typed);
+    if (exactMatch) pickKw(exactMatch.kw);
+    else if (typed) { applyKeywordState(typed, document.getElementById('url-sel').value || selUrl || urlList[0] || ''); hideDrop(); }
+  }
+}
+
+function pickKw(kw) {
+  const item = kwData.find(k => k.kw === kw);
+  if (!item) return;
+  applyKeywordState(item.kw, item.url, item);
+  hideDrop();
+  closeModal();
+}
+
+function clearKw() {
+  selItem = null; selUrl = '';
+  document.getElementById('kw-in').value = '';
+  document.getElementById('kw-chip').style.display = 'none';
+  document.getElementById('url-sel').value = '';
+  document.getElementById('url-prev').style.display = 'none';
+  hideDrop();
+  blankPrompt();
+}
+
+function onUrlChange() {
+  selUrl = document.getElementById('url-sel').value;
+  setUrlPrev(selUrl);
+  if (selUrl) { brandName = parseBrand(selUrl); rootUrl = parseRoot(selUrl); }
+  renderPrompt();
+}
+
+function setUrlPrev(url) {
+  const el = document.getElementById('url-prev');
+  el.textContent = url || '';
+  el.style.display = url ? 'block' : 'none';
+}
+
+// ── Prompt ───────────────────────────────────────────────────────
+function renderPrompt() {
+  if (!selItem || !selUrl) return;
+  const ta = document.getElementById('prompt-out');
+  ta.value = getPrompt(selItem.kw, selUrl);
+  ta.classList.remove('ph');
+  ta.readOnly = false;
+}
+
+function blankPrompt() {
+  const ta = document.getElementById('prompt-out');
+  ta.value = 'Upload a keyword sheet and select a keyword to generate your prompt.';
+  ta.classList.add('ph');
+  ta.readOnly = true;
+}
+
+function resetPrompt() {
+  if (selItem && selUrl) renderPrompt();
+}
+
+function doCopy() {
+  const ta = document.getElementById('prompt-out');
+  if (ta.classList.contains('ph')) return;
+  navigator.clipboard.writeText(ta.value).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = 'Copied ✓'; btn.classList.add('ok');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('ok'); }, 2000);
+  });
+}
+
+// ── Tabs ─────────────────────────────────────────────────────────
+document.getElementById('tab-bar').addEventListener('click', e => {
+  const t = e.target.closest('.tab');
+  if (!t) return;
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+  t.classList.add('on');
+  activeTab = t.dataset.t;
+  renderPrompt();
+});
+
+
+document.addEventListener('click', e => {
+  const kwBlock = document.getElementById('kw-in')?.closest('.row');
+  if (kwBlock && !kwBlock.contains(e.target)) hideDrop();
+});
+
+// ── Close modal on Escape ─────────────────────────────────────────
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); hideDrop(); } });
+</script>
+</body>
+</html>
