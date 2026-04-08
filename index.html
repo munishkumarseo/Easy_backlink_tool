@@ -9,12 +9,13 @@
 <style>
 :root {
   --bg: #ffffff;
-  --surface: #F7F8FA;
-  --border: #E5E7EB;
-  --text: #111827;
-  --muted: #9CA3AF;
+  --surface: #F3F6FB;
+  --surface-2: #F8FAFD;
+  --border: #DCE4F0;
+  --text: #0F172A;
+  --muted: #536179;
   --blue: #2563EB;
-  --blue-lt: #EFF6FF;
+  --blue-lt: #EEF4FF;
   --green: #16A34A;
   --green-lt: #F0FDF4;
   --red: #DC2626;
@@ -31,17 +32,17 @@ body {
   padding: 20px 16px 40px;
 }
 
-.app { width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 10px; }
+.app { width: 100%; max-width: 1120px; display: flex; flex-direction: column; gap: 10px; }
 
 /* Header */
 .hdr { display: flex; align-items: center; justify-content: space-between; padding: 0 0 6px; }
-.hdr h1 { font-family: 'Manrope', sans-serif; font-size: 17px; font-weight: 800; }
+.hdr h1 { font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: -.01em; }
 .hdr p { font-size: 11px; color: var(--muted); margin-top: 2px; }
 .hdr-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
 /* Card */
-.card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-.row { padding: 11px 13px; }
+.card { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 1px 2px rgba(15,23,42,.04); }
+.row { padding: 13px 15px; }
 .row + .row { border-top: 1px solid var(--border); }
 
 /* Label */
@@ -54,6 +55,39 @@ body {
 .up-title { font-size: 12.5px; font-weight: 600; color: #374151; margin-top: 5px; }
 .up-sub { font-size: 11px; color: var(--muted); }
 
+.upload-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom: 7px; }
+.upload-top .lbl { margin-bottom: 0; }
+.hist-btn {
+  min-width: 88px; height: 32px; padding: 0 10px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 600; color: #4B5563;
+  cursor: pointer; transition: all .15s;
+}
+.hist-btn:hover { border-color: var(--blue); background: #fff; color: var(--blue); }
+.hist-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+.hist-list { padding: 8px 0; max-height: 50vh; overflow-y: auto; }
+.hist-item {
+  width: 100%; background: transparent; border: none; text-align: left; cursor: pointer;
+  padding: 10px 14px; display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+  border-bottom: 1px solid #F3F4F6;
+}
+.hist-item:hover { background: var(--blue-lt); }
+.hist-item-main { min-width: 0; flex: 1; }
+.hist-item-name { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hist-item-meta { margin-top: 4px; font-size: 11px; color: var(--muted); }
+.hist-item-right { display:flex; align-items:center; gap:8px; flex-shrink: 0; }
+.hist-use {
+  background: var(--blue-lt); color: var(--blue); border: 1px solid #DBEAFE; border-radius: 999px;
+  font-size: 10.5px; font-weight: 700; padding: 4px 8px;
+}
+.hist-del {
+  width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--border);
+  background: #fff; color: #6B7280; cursor: pointer; font-size: 16px; line-height: 1;
+}
+.hist-del:hover { border-color: var(--red); color: var(--red); background: var(--red-lt); }
+.hist-empty { padding: 22px 18px; text-align: center; color: var(--muted); font-size: 12.5px; }
 /* Banner */
 .banner { display: none; font-size: 11.5px; padding: 7px 10px; border-radius: 7px; align-items: center; gap: 7px; margin-top: 8px; }
 .banner.ok { display: flex; background: var(--green-lt); color: var(--green); }
@@ -118,15 +152,15 @@ select {
 .url-prev { font-size: 10.5px; color: var(--blue); word-break: break-all; margin-top: 5px; }
 
 /* Tabs */
-.tabs { display: flex; gap: 3px; background: var(--surface); border-radius: 8px; padding: 3px; }
+.tabs { display: flex; gap: 3px; background: #EEF2F7; border-radius: 10px; padding: 4px; }
 .tab { flex: 1; padding: 6px 3px; border: none; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 600; color: var(--muted); background: transparent; cursor: pointer; transition: all .15s; }
 .tab.on { background: #fff; color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.1); }
 
 /* Prompt */
 textarea#prompt-out {
-  min-height: 190px; resize: vertical; line-height: 1.7; font-size: 12.5px;
-  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-  padding: 10px 11px; width: 100%; color: var(--text); outline: none;
+  min-height: 190px; resize: vertical; line-height: 1.8; font-size: 13.5px;
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+  padding: 12px 13px; width: 100%; color: var(--text); outline: none;
 }
 textarea#prompt-out:focus { border-color: var(--blue); background: #fff; }
 textarea#prompt-out.ph { color: var(--muted); font-style: italic; }
@@ -139,6 +173,194 @@ textarea#prompt-out.ph { color: var(--muted); font-style: italic; }
 .btn-blue.ok { background: var(--green); }
 .btn-outline { background: transparent; color: #6B7280; border: 1px solid var(--border); }
 .btn-outline:hover { background: var(--surface); }
+
+
+
+/* AI panel */
+.ai-head-card .hdr h1 { font-size: 18px; }
+.ai-head-card .row { padding: 14px 16px; }
+.ai-config-toggle {
+  width: 100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 14px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+.ai-config-summary { min-width: 0; flex: 1; }
+.ai-config-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #374151;
+  letter-spacing: .01em;
+}
+.ai-config-sub {
+  margin-top: 4px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.ai-config-right {
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.api-pill {
+  display:inline-flex;
+  align-items:center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: #4B5563;
+  font-size: 11px;
+  font-weight: 700;
+}
+.api-pill.ok {
+  background: var(--green-lt);
+  color: var(--green);
+  border-color: #BBF7D0;
+}
+.chev-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: #6B7280;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition: all .18s ease;
+}
+.ai-config-toggle:hover .chev-btn {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: #fff;
+}
+.chev-btn svg { transition: transform .18s ease; }
+.ai-head-card.open .chev-btn svg { transform: rotate(180deg); }
+
+.ai-config-panel {
+  display: none;
+  padding-top: 14px;
+}
+.ai-head-card.open .ai-config-panel { display: block; }
+
+.ai-help {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 8px;
+  line-height: 1.55;
+}
+.api-input-wrap {
+  display:flex;
+  gap:10px;
+  align-items:stretch;
+}
+.api-input-wrap input {
+  flex:1;
+  font-size: 13.5px;
+}
+.done-btn { min-width: 82px; }
+
+.split-card .split-head {
+  padding: 15px 16px;
+  border-bottom:1px solid var(--border);
+}
+.split-body { display:grid; grid-template-columns: 1fr; }
+.pane { min-width:0; }
+.pane + .pane { border-top:1px solid var(--border); }
+.pane .row { height:100%; padding: 16px; }
+
+@media (min-width: 900px) {
+  .split-body { grid-template-columns: 1fr 1fr; }
+  .pane + .pane { border-top:none; border-left:1px solid var(--border); }
+}
+
+.gen-actions {
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-bottom:12px;
+}
+.btn-green { background:#22C55E; color:#fff; }
+.btn-green:hover { background:#16A34A; }
+.btn-purple { background:#5865F2; color:#fff; }
+.btn-purple:hover { background:#4752C4; }
+.btn:disabled { opacity:.55; cursor:not-allowed; }
+.ai-status {
+  font-size:11.5px;
+  margin-left:auto;
+  color:var(--muted);
+  max-width: 210px;
+  text-align: right;
+  line-height: 1.4;
+}
+.ai-status.ok { color: var(--green); }
+.ai-status.err { color: var(--red); }
+
+.editor-toolbar {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:12px;
+}
+.editor-toolbar .tool-select, .editor-toolbar button {
+  background: var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:8px 12px;
+  font-size: 12px;
+  font-weight:600;
+  color:#374151;
+  cursor:pointer;
+}
+.editor-toolbar .tool-select { padding-right:28px; }
+
+.ai-output {
+  min-height: 320px;
+  background: #FBFBFC;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding: 16px 16px 18px;
+  outline:none;
+  overflow:auto;
+  line-height:1.82;
+  font-size:14px;
+  color:#1F2937;
+}
+.ai-output:focus { border-color: var(--blue); background:#fff; }
+.ai-output.is-empty { color: #9CA3AF; font-style: italic; }
+.ai-output p,
+.ai-output li,
+.ai-output blockquote { margin: 0 0 12px; }
+.ai-output h1, .ai-output h2, .ai-output h3 {
+  line-height: 1.35;
+  color: #111827;
+  margin: 0 0 12px;
+}
+.ai-output ul, .ai-output ol { padding-left: 22px; }
+.ai-output blockquote {
+  border-left: 3px solid #D1D5DB;
+  padding-left: 12px;
+  color: #4B5563;
+}
+.ai-output a { color: var(--blue); text-decoration: underline; }
+
+textarea#prompt-out {
+  min-height: 320px;
+  line-height: 1.82;
+  font-size: 14px;
+  color:#1F2937;
+  background: #FBFBFC;
+  padding: 16px;
+}
 
 /* ── MODAL ─────────────────────────────────────────────────────── */
 .modal-bg {
@@ -261,21 +483,68 @@ textarea#prompt-out.ph { color: var(--muted); font-style: italic; }
 <body>
 <div class="app">
 
-  <!-- Header -->
-  <div class="hdr">
-    <div>
-      <h1>SEO Prompt Tool</h1>
-      <p id="brand-sub">Upload a keyword sheet to begin</p>
+  <!-- AI Config -->
+  <div class="card ai-head-card" id="ai-head-card">
+    <div class="row">
+      <div class="hdr" style="padding:0;">
+        <div>
+          <h1>SEO Prompts + AI Output</h1>
+          <p id="brand-sub-ai">Upload a keyword sheet to begin</p>
+        </div>
+        <div class="hdr-icon">
+          <svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+      </div>
     </div>
-    <div class="hdr-icon">
-      <svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    <div class="row">
+      <button class="ai-config-toggle" type="button" onclick="toggleApiPanel()" aria-expanded="false" id="api-toggle-btn">
+        <div class="ai-config-summary">
+          <div class="ai-config-title">Gemini API</div>
+          <div class="ai-config-sub" id="api-summary-text">Add your API key to enable AI generation</div>
+        </div>
+        <div class="ai-config-right">
+          <span class="api-pill" id="api-pill">Not saved</span>
+          <span class="chev-btn" aria-hidden="true">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" d="m6 9 6 6 6-6"/></svg>
+          </span>
+        </div>
+      </button>
+      <div class="ai-config-panel" id="ai-config-panel">
+        <div class="lbl">Gemini API Key</div>
+        <div class="api-input-wrap">
+          <input id="api-key" type="password" placeholder="Enter API key" autocomplete="off"/>
+          <button class="btn btn-blue done-btn" type="button" id="api-save-btn" onclick="saveApiKey()">Done</button>
+        </div>
+        <div class="ai-help">Saved only in this browser using localStorage. Keep this panel collapsed when not needed for a cleaner workspace.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div class="card">
+    <div class="row">
+      <div class="hdr" style="padding:0;">
+        <div>
+          <h1>SEO Prompt Tool</h1>
+          <p id="brand-sub">Upload a keyword sheet to begin</p>
+        </div>
+        <div class="hdr-icon">
+          <svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Upload -->
   <div class="card">
     <div class="row">
-      <div class="lbl">① Keyword Sheet</div>
+      <div class="upload-top">
+        <div class="lbl">① Keyword Sheet</div>
+        <button class="hist-btn" id="hist-btn" type="button" onclick="openHistoryModal()" disabled>
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 8v5l3 3"/><path d="M3.05 11a9 9 0 1 1 .5 4"/><path stroke-linecap="round" d="M3 4v7h7"/></svg>
+          History
+        </button>
+      </div>
       <div class="upload-zone" id="upload-zone"
         onclick="document.getElementById('f-in').click()"
         ondragover="event.preventDefault();this.classList.add('drag')"
@@ -324,10 +593,10 @@ textarea#prompt-out.ph { color: var(--muted); font-style: italic; }
     </div>
   </div>
 
-  <!-- Prompt -->
-  <div class="card">
-    <div class="row">
-      <div class="lbl">④ Prompt Type</div>
+  <!-- Prompt + AI Output -->
+  <div class="card split-card">
+    <div class="split-head">
+      <div class="lbl" style="margin-bottom:8px;">④ Prompt Type</div>
       <div class="tabs" id="tab-bar">
         <button class="tab on" data-t="smo">SMO</button>
         <button class="tab" data-t="blog">Blog</button>
@@ -336,16 +605,51 @@ textarea#prompt-out.ph { color: var(--muted); font-style: italic; }
         <button class="tab" data-t="image">Image</button>
       </div>
     </div>
-    <div class="row">
-      <div class="btn-row">
-        <span class="lbl" style="flex:1;margin:0;align-self:center;">Prompt <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#9CA3AF;">· editable</span></span>
-        <button class="btn btn-outline" onclick="resetPrompt()">Reset</button>
-        <button class="btn btn-blue" id="copy-btn" onclick="doCopy()">Copy</button>
+    <div class="split-body">
+      <div class="pane">
+        <div class="row">
+          <div class="btn-row">
+            <span class="lbl" style="flex:1;margin:0;align-self:center;">Generated Prompt <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#9CA3AF;">· editable</span></span>
+            <button class="btn btn-outline" onclick="resetPrompt()">Reset</button>
+            <button class="btn btn-blue" id="copy-btn" onclick="doCopy()">Copy</button>
+          </div>
+          <textarea id="prompt-out" class="ph" readonly>Upload a keyword sheet and select a keyword to generate your prompt.</textarea>
+        </div>
       </div>
-      <textarea id="prompt-out" class="ph" readonly>Upload a keyword sheet and select a keyword to generate your prompt.</textarea>
+      <div class="pane">
+        <div class="row">
+          <div class="gen-actions">
+            <span class="lbl" style="flex:1;margin:0;align-self:center;">AI Output</span>
+            <span id="ai-status" class="ai-status">Ready</span>
+            <button class="btn btn-green" id="generate-btn" type="button" onclick="generateContentAI()">Generate</button>
+            <button class="btn btn-purple" id="rich-copy-btn" type="button" onclick="copyRichOutput()">Rich Copy</button>
+          </div>
+          <div class="editor-toolbar">
+            <select class="tool-select" onchange="formatBlock(this.value); this.selectedIndex=0;">
+              <option value="">Paragraph</option>
+              <option value="p">Paragraph</option>
+              <option value="h1">Heading 1</option>
+              <option value="h2">Heading 2</option>
+              <option value="h3">Heading 3</option>
+            </select>
+            <button type="button" onclick="execCmd('bold')">B</button>
+            <button type="button" onclick="execCmd('italic')"><i>I</i></button>
+            <button type="button" onclick="execCmd('underline')"><u>U</u></button>
+            <button type="button" onclick="execCmd('insertUnorderedList')">• List</button>
+            <button type="button" onclick="execCmd('insertOrderedList')">1. List</button>
+            <button type="button" onclick="execCmd('formatBlock','blockquote')">Quote</button>
+            <button type="button" onclick="insertLink()">Link</button>
+            <button type="button" onclick="execCmd('justifyLeft')">Left</button>
+            <button type="button" onclick="execCmd('justifyCenter')">Center</button>
+            <button type="button" onclick="execCmd('undo')">Undo</button>
+            <button type="button" onclick="execCmd('redo')">Redo</button>
+            <button type="button" onclick="setPlainTextOutput()">Plain Text</button>
+          </div>
+          <div id="ai-out" class="ai-output is-empty" contenteditable="true" data-placeholder="Generated content will appear here →">Generated content will appear here →</div>
+        </div>
+      </div>
     </div>
   </div>
-
 </div>
 
 <!-- ── KEYWORD MODAL ─────────────────────────────────────────────── -->
@@ -371,12 +675,33 @@ textarea#prompt-out.ph { color: var(--muted); font-style: italic; }
   </div>
 </div>
 
+<!-- ── FILE HISTORY MODAL ───────────────────────────────────────── -->
+<div class="modal-bg" id="history-modal-bg" onclick="closeHistoryBgClick(event)">
+  <div class="modal" style="height:62vh;">
+    <div class="modal-handle"></div>
+    <div class="modal-head">
+      <div class="modal-head-top" style="margin-bottom:0;">
+        <span class="modal-title">Upload History</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="modal-count-badge" id="history-count">0 files</span>
+          <button class="modal-close" type="button" onclick="closeHistoryModal()">×</button>
+        </div>
+      </div>
+    </div>
+    <div class="hist-list" id="history-list"></div>
+  </div>
+</div>
+
 <script>
 // ── State ────────────────────────────────────────────────────────
 let kwData = [], urlList = [];
 let selItem = null, selUrl = '';
 let activeTab = 'smo';
 let brandName = 'Your Brand', rootUrl = '';
+const FILE_HISTORY_KEY = 'seo_prompt_tool_file_history_v1';
+const FILE_HISTORY_LIMIT = 8;
+const API_KEY_STORAGE = 'seo_prompt_tool_ai_api_key_v1';
+const GEMINI_MODEL = 'gemini-2.5-flash';
 
 // ── Prompt templates ─────────────────────────────────────────────
 function getPrompt(kw, url) {
@@ -413,10 +738,144 @@ function handleFile(file) {
   if (!file) return;
   const reader = new FileReader();
   reader.onload = ev => {
-    try { parseWB(XLSX.read(ev.target.result, { type:'array' }), file.name); }
-    catch(e) { showBanner('Could not read: ' + e.message, true); }
+    try {
+      const arrayBuffer = ev.target.result;
+      parseWB(XLSX.read(arrayBuffer, { type:'array' }), file.name);
+      persistFileToHistory(file.name, arrayBuffer);
+    } catch(e) {
+      showBanner('Could not read: ' + e.message, true);
+    }
   };
   reader.readAsArrayBuffer(file);
+}
+
+function persistFileToHistory(fileName, arrayBuffer) {
+  try {
+    const bytes = new Uint8Array(arrayBuffer);
+    let binary = '';
+    const chunkSize = 0x8000;
+    for (let i = 0; i < bytes.length; i += chunkSize) {
+      binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+    }
+    const base64 = btoa(binary);
+    const nextItem = {
+      id: 'f_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+      name: fileName,
+      data: base64,
+      savedAt: Date.now()
+    };
+
+    let history = readHistory();
+    history = history.filter(item => !(item.name === fileName && item.data === base64));
+    history.unshift(nextItem);
+    history = history.slice(0, FILE_HISTORY_LIMIT);
+    localStorage.setItem(FILE_HISTORY_KEY, JSON.stringify(history));
+    refreshHistoryButton();
+  } catch (e) {
+    console.warn('Could not save file in local history:', e);
+  }
+}
+
+function readHistory() {
+  try {
+    const raw = localStorage.getItem(FILE_HISTORY_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function bytesLabel(base64) {
+  try {
+    const bytes = Math.floor((base64.length * 3) / 4);
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1).replace('.0','') + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1).replace('.0','') + ' MB';
+  } catch {
+    return '';
+  }
+}
+
+function formatSavedAt(ts) {
+  try {
+    return new Date(ts).toLocaleString([], { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' });
+  } catch {
+    return '';
+  }
+}
+
+function refreshHistoryButton() {
+  const btn = document.getElementById('hist-btn');
+  if (!btn) return;
+  const count = readHistory().length;
+  btn.disabled = count === 0;
+}
+
+function openHistoryModal() {
+  const history = readHistory();
+  const list = document.getElementById('history-list');
+  const count = document.getElementById('history-count');
+
+  count.textContent = history.length + ' file' + (history.length !== 1 ? 's' : '');
+
+  if (!history.length) {
+    list.innerHTML = '<div class="hist-empty">No files saved yet.</div>';
+  } else {
+    list.innerHTML = history.map(item => `
+      <div class="hist-item">
+        <button class="hist-item-main" type="button" onclick="loadHistoryFile('${item.id}')">
+          <div class="hist-item-name">${escapeHtml(item.name)}</div>
+          <div class="hist-item-meta">Saved ${formatSavedAt(item.savedAt)} · ${bytesLabel(item.data)}</div>
+        </button>
+        <div class="hist-item-right">
+          <button class="hist-use" type="button" onclick="loadHistoryFile('${item.id}')">Use</button>
+          <button class="hist-del" type="button" onclick="deleteHistoryFile('${item.id}')">×</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('history-modal-bg').classList.add('open');
+}
+
+function closeHistoryModal() {
+  document.getElementById('history-modal-bg').classList.remove('open');
+}
+
+function closeHistoryBgClick(e) {
+  if (e.target === document.getElementById('history-modal-bg')) closeHistoryModal();
+}
+
+function loadHistoryFile(id) {
+  const item = readHistory().find(x => x.id === id);
+  if (!item) return;
+  try {
+    const binary = atob(item.data);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    parseWB(XLSX.read(bytes.buffer, { type:'array' }), item.name);
+    showBanner('✓ Loaded "' + item.name + '" from local history', false);
+    closeHistoryModal();
+  } catch (e) {
+    showBanner('Could not load saved file: ' + e.message, true);
+  }
+}
+
+function deleteHistoryFile(id) {
+  const next = readHistory().filter(item => item.id !== id);
+  localStorage.setItem(FILE_HISTORY_KEY, JSON.stringify(next));
+  refreshHistoryButton();
+  openHistoryModal();
+}
+
+function escapeHtml(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 // ── Parser ───────────────────────────────────────────────────────
@@ -439,6 +898,7 @@ function parseWB(wb, fname) {
   rebuildUrlSel();
   enableInputs();
   document.getElementById('brand-sub').textContent = brandName + ' · ' + kwData.length + ' keywords across ' + urlList.length + ' pages';
+  document.getElementById('brand-sub-ai').textContent = brandName;
   showBanner('✓ Loaded ' + kwData.length + ' keywords from "' + fname + '"', false);
   blankPrompt();
 }
@@ -583,7 +1043,7 @@ function buildDrop(value) {
 
   drop.innerHTML = list.map(item => {
     const safe = item.kw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    const safeJs = item.kw.replace(/"/g,'\\"').replace(/'/g,"\\'");
+    const safeJs = item.kw.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     let shortUrl = '';
     try { shortUrl = new URL(item.url).pathname || '/'; } catch {}
     return `<div class="kw-drop-item" onclick="pickKw('${safeJs}')"><span>${safe}</span><small>${shortUrl || item.cat || ''}</small></div>`;
@@ -710,6 +1170,333 @@ function doCopy() {
   });
 }
 
+
+
+// ── AI helpers ───────────────────────────────────────────────────
+function isLikelyGeminiKey(key) {
+  return /^AIza[\w-]{10,}$/.test(String(key || '').trim());
+}
+
+function toggleApiPanel(forceState = null) {
+  const card = document.getElementById('ai-head-card');
+  const btn = document.getElementById('api-toggle-btn');
+  const shouldOpen = forceState === null ? !card.classList.contains('open') : !!forceState;
+  card.classList.toggle('open', shouldOpen);
+  btn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+}
+
+function updateApiUiState(hasSavedKey) {
+  const pill = document.getElementById('api-pill');
+  const summary = document.getElementById('api-summary-text');
+  if (!pill || !summary) return;
+  if (hasSavedKey) {
+    pill.textContent = 'Saved';
+    pill.classList.add('ok');
+    summary.textContent = 'API key stored locally in this browser';
+  } else {
+    pill.textContent = 'Not saved';
+    pill.classList.remove('ok');
+    summary.textContent = 'Add your API key to enable AI generation';
+  }
+}
+
+function saveApiKey() {
+  const val = document.getElementById('api-key').value.trim();
+  if (!val) {
+    setAiStatus('Enter Gemini API key first', true);
+    updateApiUiState(false);
+    toggleApiPanel(true);
+    return;
+  }
+  if (!isLikelyGeminiKey(val)) {
+    setAiStatus('This does not look like a Gemini API key', true);
+    updateApiUiState(false);
+    toggleApiPanel(true);
+    return;
+  }
+  localStorage.setItem(API_KEY_STORAGE, val);
+  updateApiUiState(true);
+  const btn = document.getElementById('api-save-btn');
+  btn.textContent = 'Saved ✓';
+  btn.classList.add('ok');
+  setAiStatus('Gemini API key saved', false);
+  setTimeout(() => {
+    btn.textContent = 'Done';
+    btn.classList.remove('ok');
+    toggleApiPanel(false);
+  }, 1200);
+}
+
+function restoreApiKey() {
+  const saved = localStorage.getItem(API_KEY_STORAGE) || '';
+  document.getElementById('api-key').value = saved;
+  updateApiUiState(!!saved);
+  toggleApiPanel(!saved);
+  if (saved) setAiStatus('Saved Gemini key detected', false);
+}
+
+function setAiStatus(msg, isErr = false) {
+  const el = document.getElementById('ai-status');
+  el.textContent = msg;
+  el.className = 'ai-status ' + (msg === 'Ready' ? '' : (isErr ? 'err' : 'ok'));
+}
+
+function getApiKey() {
+  return document.getElementById('api-key').value.trim() || localStorage.getItem(API_KEY_STORAGE) || '';
+}
+
+function setAiOutputHtml(html) {
+  const out = document.getElementById('ai-out');
+  if (!html || !String(html).trim()) {
+    out.innerHTML = out.dataset.placeholder;
+    out.classList.add('is-empty');
+    return;
+  }
+  out.innerHTML = html;
+  out.classList.remove('is-empty');
+}
+
+function escapeText(text) {
+  const div = document.createElement('div');
+  div.textContent = text || '';
+  return div.innerHTML;
+}
+
+function htmlFromPlainText(text) {
+  const escaped = escapeText(text).replace(/\n{2,}/g, '</p><p>').replace(/\n/g, '<br>');
+  return '<p>' + escaped + '</p>';
+}
+
+async function generateContentAI() {
+  const prompt = document.getElementById('prompt-out').value.trim();
+  const key = getApiKey();
+  if (!prompt || document.getElementById('prompt-out').classList.contains('ph')) {
+    setAiStatus('Generate prompt first', true);
+    return;
+  }
+  if (!key) {
+    setAiStatus('Add Gemini API key first', true);
+    toggleApiPanel(true);
+    return;
+  }
+  if (!isLikelyGeminiKey(key)) {
+    setAiStatus('Please use a Gemini API key only', true);
+    toggleApiPanel(true);
+    return;
+  }
+  localStorage.setItem(API_KEY_STORAGE, key);
+  updateApiUiState(true);
+
+  const btn = document.getElementById('generate-btn');
+  btn.disabled = true;
+  btn.textContent = 'Generating...';
+  setAiStatus('Generating with Gemini…', false);
+  try {
+    const text = await generateWithGemini(prompt, key);
+    setAiOutputHtml(markdownToHtml(text));
+    setAiStatus('Generated with Gemini', false);
+  } catch (err) {
+    setAiStatus(err.message || 'Generation failed', true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Generate';
+  }
+}
+
+async function generateWithGemini(prompt, apiKey) {
+  const endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/' + GEMINI_MODEL + ':generateContent?key=' + encodeURIComponent(apiKey);
+  const res = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      systemInstruction: {
+        parts: [{ text: 'Return polished marketing content in clean Markdown. Preserve inline links where relevant. Avoid wrapping the whole answer in code fences.' }]
+      },
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: {
+        temperature: 0.7
+      }
+    })
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const message = data?.error?.message || 'Gemini request failed';
+    const lower = String(message).toLowerCase();
+    if (res.status === 429 || lower.includes('quota') || lower.includes('rate')) {
+      throw new Error('Gemini quota or rate limit hit. API key sahi ho sakti hai, but current project quota exhausted hai. Thodi der baad retry karein ya Google AI Studio billing/quota check karein.');
+    }
+    if (res.status === 400 || lower.includes('api key not valid') || lower.includes('invalid argument')) {
+      throw new Error('Gemini request rejected. API key, model access, ya request settings check karein.');
+    }
+    throw new Error(message);
+  }
+  const text = (data?.candidates || [])
+    .flatMap(c => c?.content?.parts || [])
+    .map(p => p?.text || '')
+    .join('\n')
+    .trim();
+  if (!text) throw new Error('Gemini returned no text');
+  return text;
+}
+
+function markdownInlineToHtml(text) {
+  return escapeText(text || '')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/__(.+?)__/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/_(.+?)_/g, '<em>$1</em>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+}
+
+function markdownToHtml(text) {
+  const src = String(text || '').trim();
+  if (!src) return '';
+  const lines = src.split(/\r?\n/);
+  let html = '';
+  let inUl = false, inOl = false, inQuote = false, paragraph = [];
+
+  function flushParagraph() {
+    if (!paragraph.length) return;
+    html += '<p>' + markdownInlineToHtml(paragraph.join('<br>')) + '</p>';
+    paragraph = [];
+  }
+  function closeSpecial() {
+    if (inUl) { html += '</ul>'; inUl = false; }
+    if (inOl) { html += '</ol>'; inOl = false; }
+    if (inQuote) { html += '</blockquote>'; inQuote = false; }
+  }
+
+  for (const rawLine of lines) {
+    const trimmed = rawLine.trim();
+    if (!trimmed) {
+      flushParagraph();
+      closeSpecial();
+      continue;
+    }
+
+    let m = trimmed.match(/^(#{1,3})\s+(.*)$/);
+    if (m) {
+      flushParagraph();
+      closeSpecial();
+      const level = Math.min(m[1].length, 3);
+      html += `<h${level}>${markdownInlineToHtml(m[2])}</h${level}>`;
+      continue;
+    }
+
+    m = trimmed.match(/^[-*]\s+(.*)$/);
+    if (m) {
+      flushParagraph();
+      if (inOl) { html += '</ol>'; inOl = false; }
+      if (inQuote) { html += '</blockquote>'; inQuote = false; }
+      if (!inUl) { html += '<ul>'; inUl = true; }
+      html += '<li>' + markdownInlineToHtml(m[1]) + '</li>';
+      continue;
+    }
+
+    m = trimmed.match(/^\d+\.\s+(.*)$/);
+    if (m) {
+      flushParagraph();
+      if (inUl) { html += '</ul>'; inUl = false; }
+      if (inQuote) { html += '</blockquote>'; inQuote = false; }
+      if (!inOl) { html += '<ol>'; inOl = true; }
+      html += '<li>' + markdownInlineToHtml(m[1]) + '</li>';
+      continue;
+    }
+
+    m = trimmed.match(/^>\s?(.*)$/);
+    if (m) {
+      flushParagraph();
+      if (inUl) { html += '</ul>'; inUl = false; }
+      if (inOl) { html += '</ol>'; inOl = false; }
+      if (!inQuote) { html += '<blockquote>'; inQuote = true; }
+      html += '<p>' + markdownInlineToHtml(m[1]) + '</p>';
+      continue;
+    }
+
+    closeSpecial();
+    paragraph.push(trimmed);
+  }
+
+  flushParagraph();
+  closeSpecial();
+  return html || htmlFromPlainText(src);
+}
+
+function execCmd(cmd, val = null) {
+  focusAiOutput();
+  document.execCommand(cmd, false, val);
+  cleanupEmptyOutput();
+}
+
+function formatBlock(tag) {
+  if (!tag) return;
+  focusAiOutput();
+  document.execCommand('formatBlock', false, tag === 'p' ? 'P' : tag.toUpperCase());
+  cleanupEmptyOutput();
+}
+
+function insertLink() {
+  focusAiOutput();
+  const url = prompt('Enter link URL');
+  if (!url) return;
+  document.execCommand('createLink', false, url);
+  cleanupEmptyOutput();
+}
+
+function focusAiOutput() {
+  const out = document.getElementById('ai-out');
+  out.focus();
+  if (out.classList.contains('is-empty')) {
+    out.innerHTML = '<p><br></p>';
+    out.classList.remove('is-empty');
+  }
+}
+
+function cleanupEmptyOutput() {
+  const out = document.getElementById('ai-out');
+  if (!out.textContent.trim() && !out.querySelector('img,table,ul,ol,blockquote,a')) {
+    out.innerHTML = out.dataset.placeholder;
+    out.classList.add('is-empty');
+  }
+}
+
+function setPlainTextOutput() {
+  const out = document.getElementById('ai-out');
+  const text = out.innerText.trim();
+  setAiOutputHtml(text ? htmlFromPlainText(text) : '');
+}
+
+async function copyRichOutput() {
+  const out = document.getElementById('ai-out');
+  if (out.classList.contains('is-empty')) {
+    setAiStatus('Nothing to copy', true);
+    return;
+  }
+  const html = out.innerHTML;
+  const text = out.innerText;
+  try {
+    if (navigator.clipboard && window.ClipboardItem) {
+      const item = new ClipboardItem({
+        'text/html': new Blob([html], { type: 'text/html' }),
+        'text/plain': new Blob([text], { type: 'text/plain' })
+      });
+      await navigator.clipboard.write([item]);
+    } else {
+      await navigator.clipboard.writeText(text);
+    }
+    const btn = document.getElementById('rich-copy-btn');
+    btn.textContent = 'Copied ✓';
+    btn.classList.add('ok');
+    setAiStatus('Rich copy complete', false);
+    setTimeout(() => { btn.textContent = 'Rich Copy'; btn.classList.remove('ok'); }, 1800);
+  } catch (err) {
+    setAiStatus('Copy failed', true);
+  }
+}
+
 // ── Tabs ─────────────────────────────────────────────────────────
 document.getElementById('tab-bar').addEventListener('click', e => {
   const t = e.target.closest('.tab');
@@ -727,7 +1514,13 @@ document.addEventListener('click', e => {
 });
 
 // ── Close modal on Escape ─────────────────────────────────────────
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); hideDrop(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeHistoryModal(); hideDrop(); } });
+
+restoreApiKey();
+const aiOutEl = document.getElementById('ai-out');
+aiOutEl.addEventListener('focus', () => { if (aiOutEl.classList.contains('is-empty')) focusAiOutput(); });
+aiOutEl.addEventListener('blur', cleanupEmptyOutput);
+refreshHistoryButton();
 </script>
 </body>
 </html>
