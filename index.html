@@ -1235,7 +1235,7 @@ async function generateContentAI() {
 }
 
 async function generateWithServer(prompt) {
-  const res = await fetch('/api/generate', {
+  const res = await fetch('https://easy-baclink-backend.vercel.app/api/generate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
