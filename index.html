@@ -871,6 +871,11 @@ function parseRoot(url) {
   try { return new URL(url).origin + '/'; } catch { return url; }
 }
 
+function sheetHistoryNameFromUrl(url) {
+  const brand = parseBrand(url);
+  return (brand && brand !== 'Your Brand' ? brand : 'Google') + ' Keyword Sheet';
+}
+
 // ── File handling ────────────────────────────────────────────────
 function onDrop(e) {
   e.preventDefault();
@@ -947,7 +952,6 @@ async function loadGoogleSheetUrl() {
     if (!workbook) throw lastError || new Error('Google Sheet returned empty data');
     const parsed = parseWB(workbook, 'Google Sheet');
     if (!parsed) throw new Error('No keywords found');
-    parsed.sheetName = await fetchGoogleSheetTitle(url, parsed.sheetName);
     persistSheetUrlToHistory(url, parsed);
     showBanner('✓ Loaded ' + kwData.length + ' keywords from Google Sheet', false);
   } catch (err) {
@@ -955,17 +959,6 @@ async function loadGoogleSheetUrl() {
   } finally {
     btn.disabled = false;
     btn.textContent = 'Load URL';
-  }
-}
-
-async function fetchGoogleSheetTitle(url, fallbackName) {
-  try {
-    const response = await fetch(API_BASE_URL + '/api/google-sheet-title?url=' + encodeURIComponent(url));
-    if (!response.ok) return fallbackName || 'Google Sheet';
-    const data = await response.json();
-    return data?.title || fallbackName || 'Google Sheet';
-  } catch {
-    return fallbackName || 'Google Sheet';
   }
 }
 
@@ -1013,7 +1006,7 @@ function persistSheetUrlToHistory(url, parsed) {
     const nextItem = {
       id: 's_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
       url: cleanUrl,
-      name: parsed?.sheetName || 'Google Sheet',
+      name: parsed?.name || sheetHistoryNameFromUrl(urlList[0] || cleanUrl),
       keywordCount: parsed?.keywordCount || kwData.length || 0,
       urlCount: parsed?.urlCount || urlList.length || 0,
       savedAt: Date.now()
@@ -1373,6 +1366,7 @@ function parseWB(wb, fname) {
   return {
     sourceName: fname,
     sheetName: bestSheetName || fname,
+    name: sheetHistoryNameFromUrl(urlList[0] || ''),
     keywordCount: kwData.length,
     rawKeywordCount: best.length,
     urlCount: urlList.length
