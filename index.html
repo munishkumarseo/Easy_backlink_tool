@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link rel="icon" href="pie-chart.svg" type="image/svg+xml"/>
+<link rel="icon" href="pie-chart.png" type="image/png"/>
 <title>SEO Prompt Tool</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jodit/3.24.9/jodit.min.css"/>
@@ -77,6 +77,40 @@ body {
 
 .upload-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom: 7px; }
 .upload-top .lbl { margin-bottom: 0; }
+.upload-actions { display:flex; align-items:center; gap:8px; }
+.upload-note {
+  margin: 0 0 10px;
+  padding: 10px 12px;
+  border: 1px solid #DBEAFE;
+  border-radius: 9px;
+  background: var(--blue-lt);
+  color: #1E3A8A;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.upload-note strong {
+  color: var(--blue);
+  font-weight: 800;
+}
+.sheet-url-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.sheet-url-row input {
+  flex: 1;
+}
+.sheet-url-row .btn {
+  min-width: 104px;
+}
+@media (max-width: 640px) {
+  .sheet-url-row {
+    flex-direction: column;
+  }
+  .sheet-url-row .btn {
+    width: 100%;
+  }
+}
 .hist-btn {
   min-width: 88px; height: 32px; padding: 0 10px;
   background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
@@ -86,6 +120,95 @@ body {
 }
 .hist-btn:hover { border-color: var(--blue); background: #fff; color: var(--blue); }
 .hist-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  padding: 12px 14px 4px;
+}
+.preview-stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+}
+.preview-stat strong {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--text);
+}
+.preview-stat span {
+  display: block;
+  margin-top: 5px;
+  font-size: 10.5px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-weight: 700;
+}
+.preview-section-title {
+  padding: 14px 14px 8px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #4B5563;
+}
+.preview-table {
+  width: calc(100% - 28px);
+  margin: 0 14px 14px;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+.preview-table th,
+.preview-table td {
+  border-bottom: 1px solid #EEF0F3;
+  padding: 9px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+.preview-table th {
+  color: var(--muted);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-weight: 800;
+}
+.preview-table td:first-child {
+  width: 46px;
+  color: var(--muted);
+  font-weight: 700;
+}
+.preview-url {
+  max-width: 310px;
+  color: var(--blue);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.preview-dup-list {
+  margin: 0 14px 14px;
+  display: grid;
+  gap: 8px;
+}
+.preview-dup {
+  border: 1px solid #DBEAFE;
+  background: #F8FBFF;
+  border-radius: 9px;
+  padding: 9px 10px;
+  font-size: 12px;
+}
+.preview-dup strong { display:block; color: var(--text); margin-bottom: 4px; }
+.preview-dup span { color: var(--muted); }
+@media (max-width: 640px) {
+  .upload-actions { width: 100%; justify-content: flex-end; }
+  .preview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .preview-url { max-width: 150px; }
+}
 
 .hist-list { padding: 8px 0; max-height: 50vh; overflow-y: auto; }
 .hist-item {
@@ -341,6 +464,17 @@ textarea#prompt-out.ph { color: var(--muted); font-style: italic; }
   color: #4B5563;
 }
 .ai-output a { color: var(--blue); text-decoration: underline; }
+.ai-generated-image {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin: 0 auto 14px;
+  background: var(--surface);
+}
 .ai-output hr {
   border: 0;
   border-top: 1px solid var(--border);
@@ -462,6 +596,16 @@ textarea#prompt-out {
   max-width: 360px; overflow: hidden;
   text-overflow: ellipsis; white-space: nowrap;
 }
+.modal-cat-count {
+  font-size: 10.5px;
+  color: var(--blue);
+  background: #DBEAFE;
+  border: 1px solid #BFDBFE;
+  border-radius: 999px;
+  padding: 2px 7px;
+  font-weight: 800;
+  white-space: nowrap;
+}
 
 /* Keyword row */
 .modal-kw {
@@ -514,10 +658,23 @@ textarea#prompt-out {
     <div class="row">
       <div class="upload-top">
         <div class="lbl">① Keyword Sheet</div>
-        <button class="hist-btn" id="hist-btn" type="button" onclick="openHistoryModal()" disabled>
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 8v5l3 3"/><path d="M3.05 11a9 9 0 1 1 .5 4"/><path stroke-linecap="round" d="M3 4v7h7"/></svg>
-          History
-        </button>
+        <div class="upload-actions">
+          <button class="hist-btn" id="preview-btn" type="button" onclick="openPreviewModal()" disabled>
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h9"/></svg>
+            Preview
+          </button>
+          <button class="hist-btn" id="hist-btn" type="button" onclick="openHistoryModal()" disabled>
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 8v5l3 3"/><path d="M3.05 11a9 9 0 1 1 .5 4"/><path stroke-linecap="round" d="M3 4v7h7"/></svg>
+            History
+          </button>
+        </div>
+      </div>
+      <div class="upload-note">
+        <strong>Start here:</strong> Upload your keyword sheet first. The tool will read keywords and target URLs from the file, then you can select a keyword and generate content.
+      </div>
+      <div class="sheet-url-row">
+        <input id="sheet-url-in" type="url" placeholder="Paste public Google Sheet URL…"/>
+        <button class="btn btn-blue" id="sheet-url-btn" type="button" onclick="loadGoogleSheetUrl()">Load URL</button>
       </div>
       <div class="upload-zone" id="upload-zone"
         onclick="document.getElementById('f-in').click()"
@@ -658,6 +815,23 @@ textarea#prompt-out {
   </div>
 </div>
 
+<!-- ── PARSED KEYWORD PREVIEW MODAL ────────────────────────────── -->
+<div class="modal-bg" id="preview-modal-bg" onclick="closePreviewBgClick(event)">
+  <div class="modal" style="height:82vh;max-width:860px;">
+    <div class="modal-handle"></div>
+    <div class="modal-head">
+      <div class="modal-head-top" style="margin-bottom:0;">
+        <span class="modal-title">Keyword Preview</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="modal-count-badge" id="preview-count">0 keywords</span>
+          <button class="modal-close" type="button" onclick="closePreviewModal()">×</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-body" id="preview-body"></div>
+  </div>
+</div>
+
 <script>
 // ── State ────────────────────────────────────────────────────────
 let kwData = [], urlList = [];
@@ -665,20 +839,21 @@ let selItem = null, selUrl = '';
 let activeTab = 'smo';
 let brandName = 'Your Brand', rootUrl = '';
 let aiEditor = null;
+let parsePreview = null;
 const FILE_HISTORY_KEY = 'seo_prompt_tool_file_history_v1';
+const SHEET_URL_HISTORY_KEY = 'seo_prompt_tool_sheet_url_history_v1';
 const FILE_HISTORY_LIMIT = 8;
-const API_KEY_STORAGE = 'seo_prompt_tool_ai_api_key_v1';
-const API_PROVIDER_STORAGE = 'seo_prompt_tool_ai_provider_v1';
+const SHEET_URL_HISTORY_LIMIT = 12;
 
 // ── Prompt templates ─────────────────────────────────────────────
 function getPrompt(kw, url) {
   const b = brandName, r = rootUrl;
   const T = {
-    smo:   () => `Create an SMO post. The keyword is: ${kw}\n\nPost must have a heading and content of 40 to 60 words, SEO optimized.\n\nAdd this line at the end:\nVisit our website: ${url}`,
+    smo:   () => `Create a professional SMO post. The keyword is: ${kw}\n\nOutput format:\n- One engaging heading\n- One concise post body of 40 to 60 words\n- SEO optimized, natural, and written for social media\n- Use the keyword naturally once in the post body\n- Keep tone clear, polished, and business-friendly\n\nAdd this line exactly at the end:\nVisit our website: ${url}\n\nGUIDELINE: Output only the final SMO post. Do not add explanations, labels, hashtags, emojis, or HTML tags.`,
     blog:  () => `Write a complete SEO-friendly blog article, not a short answer or outline.\n\nRequired format:\n**Meta Title**\nWrite one SEO title, 50 to 60 characters.\n\n**Meta Description**\nWrite one persuasive meta description, 140 to 160 characters.\n\n# Write a unique blog title about "${kw}"\n\nThen write the article body. The body alone must be at least 1100 words, excluding Meta Title, Meta Description, H1 title, and headings.\n\nBody requirements:\n- A strong opening paragraph directly about "${kw}"\n- 5 to 7 useful H2 sections with topic-specific headings\n- 2 to 4 short paragraphs under most H2 sections\n- Practical tips, benefits, strategy, examples, and buyer guidance\n- Natural SEO tone for business readers\n- Final H2 section must be "## Conclusion" with a useful closing paragraph\n- Do not use generic section titles like "Introduction" or "Overview"\n- Do not use horizontal separators like ---\n\nKeyword: "${kw}"\n\nStrictly within the first body paragraph after the H1 title, bind this link on the given keyword:\nLink: ${url}\nNote: The keyword is not a person.\n\nAdd "${b}" naturally near the bottom of the blog and bind this link on that keyword:\nLink: ${r}\n\nBefore finalizing, self-check that body content is 1100+ words and includes the final Conclusion section.\n\nGUIDELINE: Output in clean Markdown only. Bind links using Markdown format like [keyword](https://example.com/). Do not use HTML tags such as <a> or <br>. Avoid tables unless a comparison table is truly necessary.`,
-    micro: () => `Create a micro blog. The keyword is: ${kw}\n\nPost must have a heading and content of 205 to 250 words.\nBind this link on the keyword: ${url}\nThe keyword must appear in the center paragraph of the content.\n\nGUIDELINE: Output in plain text only. Bind (Markdown) the link on the given keyword. If you use any HTML tag, regenerate the response.`,
+    micro: () => `Create a professional micro blog. The keyword is: ${kw}\n\nOutput format:\n- One clear heading\n- Body content of 205 to 250 words\n- 3 short paragraphs only\n- The keyword must appear in the center paragraph of the content\n- Bind this link on the keyword using Markdown format: ${url}\n- Keep the tone informative, polished, and SEO-friendly\n\nGUIDELINE: Output only the final micro blog in clean plain text/Markdown. Do not add explanations, labels, hashtags, emojis, bullet lists, or HTML tags. If you use any HTML tag, regenerate the response.`,
     ad:    () => `Create an ad title and description of around 50 to 70 words.\nKeyword: "${kw}"\n\nAdd this at the bottom:\nPlease visit our website: ${url}`,
-    image: () => `Create an Instagram post-size image for ${b} with:\n- Company logo\n- Keyword-related image\n- Keyword: "${kw}"\n- Website: ${url}\n- Keyword-related heading\n- Short description\n\nVisit our website: ${url}`,
+    image: () => `Create a ready-to-use image generation prompt for an Instagram square post for ${b}.\n\nTopic keyword: "${kw}"\nWebsite: ${url}\nBrand name: ${b}\n\nOutput must include:\n\n**Image Prompt**\nWrite one detailed image prompt for a 1:1 Instagram post. Describe the main visual, scene, objects, background, lighting, style, colors, and composition. Keep it realistic, professional, and suitable for the keyword.\n\n**Text Overlay**\nWrite a short heading of 5 to 8 words for the image.\nWrite one short supporting line of 8 to 14 words.\nInclude the website: ${url}\n\n**Design Direction**\nGive 4 to 6 concise bullets for layout, color palette, typography, spacing, and visual hierarchy.\n\n**Negative Prompt**\nList what the image model should avoid: blurry output, distorted text, extra fingers, wrong logo, watermark, clutter, spelling mistakes, low-resolution design.\n\nGUIDELINE: Do not generate an image. Generate only the final prompt package in clean Markdown. Do not use HTML tags.`,
   };
   return (T[activeTab] || T.smo)();
 }
@@ -714,6 +889,83 @@ function handleFile(file) {
     }
   };
   reader.readAsArrayBuffer(file);
+}
+
+function getGoogleSheetInfo(url) {
+  const text = String(url || '').trim();
+  const idMatch = text.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+  if (!idMatch) throw new Error('Paste a valid Google Sheet URL');
+  const gidMatch = text.match(/[?#&]gid=(\d+)/);
+  return {
+    id: idMatch[1],
+    gid: gidMatch ? gidMatch[1] : '0'
+  };
+}
+
+function googleSheetSources(url) {
+  const { id, gid } = getGoogleSheetInfo(url);
+  return [
+    { type: 'xlsx', url: `https://docs.google.com/spreadsheets/d/${id}/export?format=xlsx` },
+    { type: 'csv', url: `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&gid=${gid}` },
+    { type: 'csv', url: `https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}` }
+  ];
+}
+
+async function loadGoogleSheetUrl() {
+  const input = document.getElementById('sheet-url-in');
+  const btn = document.getElementById('sheet-url-btn');
+  const url = input.value.trim();
+  if (!url) {
+    showBanner('Paste a Google Sheet URL first', true);
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Loading...';
+  showBanner('Loading Google Sheet...', false);
+
+  try {
+    let workbook = null;
+    let lastError = null;
+    for (const source of googleSheetSources(url)) {
+      try {
+        const response = await fetch(source.url);
+        if (!response.ok) throw new Error('Google Sheet returned ' + response.status);
+        if (source.type === 'xlsx') {
+          const buffer = await response.arrayBuffer();
+          if (buffer.byteLength) workbook = XLSX.read(buffer, { type: 'array' });
+        } else {
+          const csv = await response.text();
+          if (csv.trim()) workbook = XLSX.read(csv, { type: 'string' });
+        }
+        if (workbook) break;
+      } catch (err) {
+        lastError = err;
+      }
+    }
+    if (!workbook) throw lastError || new Error('Google Sheet returned empty data');
+    const parsed = parseWB(workbook, 'Google Sheet');
+    if (!parsed) throw new Error('No keywords found');
+    parsed.sheetName = await fetchGoogleSheetTitle(url, parsed.sheetName);
+    persistSheetUrlToHistory(url, parsed);
+    showBanner('✓ Loaded ' + kwData.length + ' keywords from Google Sheet', false);
+  } catch (err) {
+    showBanner((err.message || 'Could not load Google Sheet') + '. Make sure sharing is set to "Anyone with the link can view".', true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Load URL';
+  }
+}
+
+async function fetchGoogleSheetTitle(url, fallbackName) {
+  try {
+    const response = await fetch('/api/google-sheet-title?url=' + encodeURIComponent(url));
+    if (!response.ok) return fallbackName || 'Google Sheet';
+    const data = await response.json();
+    return data?.title || fallbackName || 'Google Sheet';
+  } catch {
+    return fallbackName || 'Google Sheet';
+  }
 }
 
 function persistFileToHistory(fileName, arrayBuffer) {
@@ -753,6 +1005,39 @@ function readHistory() {
   }
 }
 
+function persistSheetUrlToHistory(url, parsed) {
+  try {
+    const cleanUrl = String(url || '').trim();
+    if (!cleanUrl) return;
+    const nextItem = {
+      id: 's_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+      url: cleanUrl,
+      name: parsed?.sheetName || 'Google Sheet',
+      keywordCount: parsed?.keywordCount || kwData.length || 0,
+      urlCount: parsed?.urlCount || urlList.length || 0,
+      savedAt: Date.now()
+    };
+    let history = readSheetUrlHistory();
+    history = history.filter(item => item.url !== cleanUrl);
+    history.unshift(nextItem);
+    history = history.slice(0, SHEET_URL_HISTORY_LIMIT);
+    localStorage.setItem(SHEET_URL_HISTORY_KEY, JSON.stringify(history));
+    refreshHistoryButton();
+  } catch (e) {
+    console.warn('Could not save Google Sheet URL history:', e);
+  }
+}
+
+function readSheetUrlHistory() {
+  try {
+    const raw = localStorage.getItem(SHEET_URL_HISTORY_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
 function bytesLabel(base64) {
   try {
     const bytes = Math.floor((base64.length * 3) / 4);
@@ -775,21 +1060,42 @@ function formatSavedAt(ts) {
 function refreshHistoryButton() {
   const btn = document.getElementById('hist-btn');
   if (!btn) return;
-  const count = readHistory().length;
+  const count = readHistory().length + readSheetUrlHistory().length;
   btn.disabled = count === 0;
 }
 
 function openHistoryModal() {
-  const history = readHistory();
+  const fileHistory = readHistory();
+  const sheetHistory = readSheetUrlHistory();
   const list = document.getElementById('history-list');
   const count = document.getElementById('history-count');
+  const total = fileHistory.length + sheetHistory.length;
 
-  count.textContent = history.length + ' file' + (history.length !== 1 ? 's' : '');
+  count.textContent = total + ' item' + (total !== 1 ? 's' : '');
 
-  if (!history.length) {
-    list.innerHTML = '<div class="hist-empty">No files saved yet.</div>';
+  if (!total) {
+    list.innerHTML = '<div class="hist-empty">No history saved yet.</div>';
   } else {
-    list.innerHTML = history.map(item => `
+    const sheetHtml = sheetHistory.length ? `
+      <div class="preview-section-title">Google Sheet URLs</div>
+      ${sheetHistory.map(item => `
+        <div class="hist-item">
+          <button class="hist-item-main" type="button" onclick="loadSheetUrlHistory('${item.id}')">
+            <div class="hist-item-name">${escapeHtml(item.name)}</div>
+            <div class="hist-item-meta">${escapeHtml(item.keywordCount || 0)} keywords · ${escapeHtml(item.urlCount || 0)} URLs · Saved ${formatSavedAt(item.savedAt)}</div>
+            <div class="url-prev">${escapeHtml(item.url)}</div>
+          </button>
+          <div class="hist-item-right">
+            <button class="hist-use" type="button" onclick="loadSheetUrlHistory('${item.id}')">Use</button>
+            <button class="hist-del" type="button" onclick="deleteSheetUrlHistory('${item.id}')">×</button>
+          </div>
+        </div>
+      `).join('')}
+    ` : '';
+
+    const fileHtml = fileHistory.length ? `
+      <div class="preview-section-title">Uploaded Files</div>
+      ${fileHistory.map(item => `
       <div class="hist-item">
         <button class="hist-item-main" type="button" onclick="loadHistoryFile('${item.id}')">
           <div class="hist-item-name">${escapeHtml(item.name)}</div>
@@ -800,7 +1106,10 @@ function openHistoryModal() {
           <button class="hist-del" type="button" onclick="deleteHistoryFile('${item.id}')">×</button>
         </div>
       </div>
-    `).join('');
+      `).join('')}
+    ` : '';
+
+    list.innerHTML = sheetHtml + fileHtml;
   }
 
   document.getElementById('history-modal-bg').classList.add('open');
@@ -812,6 +1121,106 @@ function closeHistoryModal() {
 
 function closeHistoryBgClick(e) {
   if (e.target === document.getElementById('history-modal-bg')) closeHistoryModal();
+}
+
+function refreshPreviewButton() {
+  const btn = document.getElementById('preview-btn');
+  if (btn) btn.disabled = !parsePreview || !kwData.length;
+}
+
+function previewDuplicateGroups(rows) {
+  const groups = new Map();
+  rows.forEach(item => {
+    const key = normalizeKeywordKey(item.kw);
+    if (!key) return;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(item);
+  });
+  return Array.from(groups.values()).filter(items => items.length > 1);
+}
+
+function shortPreviewUrl(url) {
+  try {
+    return new URL(url).pathname || '/';
+  } catch {
+    return url || '';
+  }
+}
+
+function openPreviewModal() {
+  if (!parsePreview) return;
+  const body = document.getElementById('preview-body');
+  const count = document.getElementById('preview-count');
+  const duplicates = previewDuplicateGroups(parsePreview.rawRows);
+  const duplicateExtraRows = Math.max(0, parsePreview.rawRows.length - kwData.length);
+  const rows = addTargetUrlKeywordNumbers(kwData).slice(0, 100);
+
+  count.textContent = kwData.length + ' parsed keywords';
+  body.innerHTML = `
+    <div class="preview-grid">
+      <div class="preview-stat"><strong>${parsePreview.rawRows.length}</strong><span>Raw rows</span></div>
+      <div class="preview-stat"><strong>${kwData.length}</strong><span>Parsed keywords</span></div>
+      <div class="preview-stat"><strong>${duplicateExtraRows}</strong><span>Duplicates removed</span></div>
+      <div class="preview-stat"><strong>${urlList.length}</strong><span>Target URLs</span></div>
+    </div>
+    <div class="preview-section-title">Parsed keywords ${kwData.length > rows.length ? `(first ${rows.length})` : ''}</div>
+    <table class="preview-table">
+      <thead><tr><th>#</th><th>Keyword</th><th>Target URL</th></tr></thead>
+      <tbody>
+        ${rows.map(item => `
+          <tr>
+            <td>${escapeHtml(item.targetIndex || '-')}</td>
+            <td>${escapeHtml(item.kw)}</td>
+            <td><div class="preview-url" title="${escapeHtml(item.url)}">${escapeHtml(shortPreviewUrl(item.url))}</div></td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    <div class="preview-section-title">Duplicate keywords ${duplicates.length ? '' : '(none)'}</div>
+    <div class="preview-dup-list">
+      ${duplicates.length ? duplicates.slice(0, 60).map(items => `
+        <div class="preview-dup">
+          <strong>${escapeHtml(items[0].kw)}</strong>
+          <span>Rows: ${escapeHtml(items.map(item => item.rowNumber || '-').join(', '))}</span>
+        </div>
+      `).join('') : '<div class="hist-empty">No duplicate keywords found.</div>'}
+    </div>
+  `;
+  document.getElementById('preview-modal-bg').classList.add('open');
+}
+
+function addTargetUrlKeywordNumbers(rows) {
+  const counts = new Map();
+  return rows.map(item => {
+    const urlKey = normalizeUrlKey(item.url);
+    const next = (counts.get(urlKey) || 0) + 1;
+    counts.set(urlKey, next);
+    return { ...item, targetIndex: next };
+  });
+}
+
+function closePreviewModal() {
+  document.getElementById('preview-modal-bg').classList.remove('open');
+}
+
+function closePreviewBgClick(e) {
+  if (e.target === document.getElementById('preview-modal-bg')) closePreviewModal();
+}
+
+function loadSheetUrlHistory(id) {
+  const item = readSheetUrlHistory().find(x => x.id === id);
+  if (!item) return;
+  const input = document.getElementById('sheet-url-in');
+  input.value = item.url;
+  closeHistoryModal();
+  loadGoogleSheetUrl();
+}
+
+function deleteSheetUrlHistory(id) {
+  const next = readSheetUrlHistory().filter(item => item.id !== id);
+  localStorage.setItem(SHEET_URL_HISTORY_KEY, JSON.stringify(next));
+  refreshHistoryButton();
+  openHistoryModal();
 }
 
 function loadHistoryFile(id) {
@@ -846,18 +1255,104 @@ function escapeHtml(str) {
 }
 
 // ── Parser ───────────────────────────────────────────────────────
-const URL_RE = /^https?:\/\/\S+/i;
+const URL_RE = /https?:\/\/[^\s,"')]+/i;
+
+function extractFirstUrl(text) {
+  const match = String(text || '').match(URL_RE);
+  return match ? match[0].replace(/[.,;:]+$/, '') : '';
+}
+
+function cleanKeywordText(text) {
+  return String(text || '')
+    .replace(/[\u200B-\u200D\uFEFF]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function isSerialCell(value) {
+  return /^#?\d+(\.\d+)?$/.test(String(value || '').trim());
+}
+
+function isHeaderText(text) {
+  return /main keyword|keywords|keyword research|sr\.|target page|page status|existing|homepage|category|ranking|difficulty|volume|monthly searches|search volume|priority|suggestions|current position/i.test(String(text || ''));
+}
+
+function isLikelyKeyword(text) {
+  const value = cleanKeywordText(text);
+  if (value.length < 3) return false;
+  if (extractFirstUrl(value)) return false;
+  if (isHeaderText(value)) return false;
+  if (isSerialCell(value)) return false;
+  return /[a-z]/i.test(value) && /\s/.test(value);
+}
+
+function keywordColumnFromRow(row) {
+  return row.findIndex(cell => /^(main\s+keyword|keywords?)$/i.test(cleanKeywordText(cell)));
+}
+
+function isMetricCell(value) {
+  const text = cleanKeywordText(value);
+  return /^(\d+(\.\d+)?|\d+(\.\d+)?\s*[kK]|NA|N\/A|\d+\s*[kK]?\s*[-–]\s*\d+\s*[kK]?)$/.test(text);
+}
+
+function hasNearbyMetrics(cells, index) {
+  return cells.slice(index + 1, index + 4).some(isMetricCell);
+}
+
+function keywordFromRow(row, keywordCol = -1) {
+  const cells = row.map(cell => cleanKeywordText(cell));
+  if (keywordCol >= 0) {
+    const keyword = cells[keywordCol] || '';
+    if (isLikelyKeyword(keyword) && (isSerialCell(cells[0]) || hasNearbyMetrics(cells, keywordCol))) return keyword;
+    return '';
+  }
+  if (isSerialCell(cells[0])) {
+    return cells.slice(1).find(isLikelyKeyword) || '';
+  }
+  const index = cells.findIndex(isLikelyKeyword);
+  return index >= 0 && hasNearbyMetrics(cells, index) ? cells[index] : '';
+}
+
+function normalizeKeywordKey(keyword) {
+  return cleanKeywordText(keyword);
+}
+
+function normalizeUrlKey(url) {
+  return String(url || '').replace(/\/+$/, '').toLowerCase();
+}
+
+function dedupeKeywordRows(rows) {
+  const byKeywordAndUrl = new Map();
+  rows.forEach(item => {
+    const keywordKey = normalizeKeywordKey(item.kw);
+    if (!keywordKey) return;
+    const key = keywordKey + '|' + normalizeUrlKey(item.url);
+    if (!byKeywordAndUrl.has(key)) {
+      byKeywordAndUrl.set(key, item);
+    }
+  });
+  return Array.from(byKeywordAndUrl.values());
+}
 
 function parseWB(wb, fname) {
   let best = [];
+  let bestSheetName = '';
   wb.SheetNames.forEach(name => {
     const rows = XLSX.utils.sheet_to_json(wb.Sheets[name], { header:1, defval:'' });
-    const p = parseSheet(rows);
-    if (p.length > best.length) best = p;
+    const p = parseSheet(rows, name);
+    if (p.length > best.length) {
+      best = p;
+      bestSheetName = name;
+    }
   });
-  if (!best.length) { showBanner('No keywords found — check sheet structure.', true); return; }
+  if (!best.length) {
+    parsePreview = null;
+    refreshPreviewButton();
+    showBanner('No keywords found — check sheet structure.', true);
+    return null;
+  }
 
-  kwData = best;
+  kwData = dedupeKeywordRows(best);
   urlList = [...new Set(kwData.map(k => k.url))];
   brandName = parseBrand(urlList[0] || '');
   rootUrl   = parseRoot(urlList[0] || '');
@@ -866,23 +1361,47 @@ function parseWB(wb, fname) {
   enableInputs();
   document.getElementById('brand-sub').textContent = brandName + ' · ' + kwData.length + ' keywords across ' + urlList.length + ' pages';
   showBanner('✓ Loaded ' + kwData.length + ' keywords from "' + fname + '"', false);
+  parsePreview = {
+    sourceName: fname,
+    sheetName: bestSheetName,
+    rawRows: best.slice(),
+    uniqueRows: kwData.slice()
+  };
+  refreshPreviewButton();
   blankPrompt();
+  return {
+    sourceName: fname,
+    sheetName: bestSheetName || fname,
+    keywordCount: kwData.length,
+    rawKeywordCount: best.length,
+    urlCount: urlList.length
+  };
 }
 
-function parseSheet(rows) {
+function parseSheet(rows, sheetName = '') {
   const result = [];
   let curUrl = '', curCat = '';
-  rows.forEach(row => {
+  let keywordCol = -1;
+  rows.forEach((row, rowIndex) => {
+    const foundKeywordCol = keywordColumnFromRow(row);
+    if (foundKeywordCol >= 0) keywordCol = foundKeywordCol;
+
+    let rowHasUrl = false;
     for (let ci = 0; ci < row.length; ci++) {
       const cell = String(row[ci] || '').trim();
-      if (URL_RE.test(cell)) { curUrl = cell; curCat = slugToCat(cell); break; }
+      const foundUrl = extractFirstUrl(cell);
+      if (foundUrl) {
+        curUrl = foundUrl;
+        curCat = slugToCat(foundUrl);
+        rowHasUrl = true;
+        break;
+      }
     }
+    if (rowHasUrl) return;
     if (!curUrl) return;
-    const c0 = String(row[0] || '').trim();
-    const c1 = String(row[1] || '').trim();
-    if (/main keyword|keywords|sr\.|target page|page status|existing|homepage|category|ranking|difficulty|keyword research/i.test(c0 + c1)) return;
-    if (/^\d+$/.test(c0) && c1.length > 2 && !URL_RE.test(c1)) { result.push({ kw: c1.trim(), url: curUrl, cat: curCat }); return; }
-    if (c0.length > 3 && !/^\d+$/.test(c0) && !URL_RE.test(c0) && /\s/.test(c0)) result.push({ kw: c0.trim(), url: curUrl, cat: curCat });
+    if (row.slice(0, 3).some(cell => isHeaderText(cell))) return;
+    const keyword = keywordFromRow(row, keywordCol);
+    if (keyword) result.push({ kw: keyword, url: curUrl, cat: curCat, rowNumber: rowIndex + 1, sheetName });
   });
   return result;
 }
@@ -936,8 +1455,7 @@ function closeBgClick(e) {
 }
 
 function renderModal(q) {
-  const q2 = (q || '').toLowerCase().trim();
-  const list = q2 ? kwData.filter(k => k.kw.toLowerCase().includes(q2)) : kwData;
+  const list = getKeywordMatches(q, Infinity);
 
   document.getElementById('modal-count').textContent = list.length + ' keyword' + (list.length !== 1 ? 's' : '');
 
@@ -970,6 +1488,7 @@ function renderModal(q) {
 
     return `<div class="modal-cat">
       <span class="modal-cat-name">${cat}</span>
+      <span class="modal-cat-count">${items.length}</span>
       <span class="modal-cat-url">${shortUrl}</span>
     </div>${rows}`;
   }).join('');
@@ -977,22 +1496,49 @@ function renderModal(q) {
 
 // ── Keyword pick / typing ───────────────────────────────────────
 // ── Keyword dropdown ──────────────────────────────────────────────
-function getKeywordMatches(value) {
-  const typed = (value || '').trim().toLowerCase();
-  if (!typed) return kwData.slice(0, 40);
-  const starts = kwData.filter(k => k.kw.toLowerCase().startsWith(typed));
-  const contains = kwData.filter(k => !k.kw.toLowerCase().startsWith(typed) && k.kw.toLowerCase().includes(typed));
-  return [...starts, ...contains].slice(0, 40);
+function normalizeSearchText(value) {
+  return String(value || '').toLowerCase().replace(/\s+/g, ' ').trim();
+}
+
+function getSearchTokens(value) {
+  return normalizeSearchText(value).split(' ').filter(Boolean);
+}
+
+function keywordMatchesQuery(keyword, query) {
+  const normalizedKeyword = normalizeSearchText(keyword);
+  const normalizedQuery = normalizeSearchText(query);
+  if (!normalizedQuery) return true;
+  if (normalizedKeyword.includes(normalizedQuery)) return true;
+  const tokens = getSearchTokens(query);
+  return tokens.length > 0 && tokens.every(token => normalizedKeyword.includes(token));
+}
+
+function keywordMatchScore(keyword, query) {
+  const normalizedKeyword = normalizeSearchText(keyword);
+  const normalizedQuery = normalizeSearchText(query);
+  if (!normalizedQuery) return 0;
+  if (normalizedKeyword === normalizedQuery) return 0;
+  if (normalizedKeyword.startsWith(normalizedQuery)) return 1;
+  if (normalizedKeyword.includes(normalizedQuery)) return 2;
+  return 3;
+}
+
+function getKeywordMatches(value, limit = 120) {
+  const typed = normalizeSearchText(value);
+  const list = typed ? kwData.filter(k => keywordMatchesQuery(k.kw, typed)) : kwData;
+  const sorted = typed ? list.sort((a, b) => keywordMatchScore(a.kw, typed) - keywordMatchScore(b.kw, typed) || a.kw.localeCompare(b.kw)) : list;
+  return Number.isFinite(limit) ? sorted.slice(0, limit) : sorted;
 }
 
 function buildDrop(value) {
   const drop = document.getElementById('kw-drop');
-  const typed = (value || '').trim();
+  const rawValue = value || '';
+  const typed = rawValue.trim();
   if (!kwData.length || document.getElementById('kw-in').disabled) { hideDrop(); return; }
 
-  const exactMatch = findKeywordMatch(typed);
-  if (exactMatch) applyKeywordState(exactMatch.kw, exactMatch.url, exactMatch);
-  else if (typed) applyKeywordState(typed, document.getElementById('url-sel').value || selUrl || urlList[0] || '');
+  const exactMatch = /\s$/.test(rawValue) ? null : findKeywordMatch(typed);
+  if (exactMatch) applyKeywordState(exactMatch.kw, exactMatch.url, exactMatch, { preserveInputValue: true });
+  else if (typed) applyKeywordState(rawValue, document.getElementById('url-sel').value || selUrl || urlList[0] || '', null, { preserveInputValue: true });
   else {
     selItem = null;
     selUrl = document.getElementById('url-sel').value || '';
@@ -1022,10 +1568,10 @@ function hideDrop() {
   if (drop) drop.style.display = 'none';
 }
 
-function applyKeywordState(kw, url, matchedItem = null) {
+function applyKeywordState(kw, url, matchedItem = null, options = {}) {
   const cleanKw = (kw || '').trim();
   const kwInput = document.getElementById('kw-in');
-  kwInput.value = cleanKw;
+  if (!options.preserveInputValue) kwInput.value = cleanKw;
 
   if (!cleanKw) {
     selItem = null;
@@ -1070,7 +1616,9 @@ function handleKeywordKeydown(e) {
     e.preventDefault();
     const typed = document.getElementById('kw-in').value.trim();
     const exactMatch = findKeywordMatch(typed);
+    const matches = getKeywordMatches(typed, Infinity);
     if (exactMatch) pickKw(exactMatch.kw);
+    else if (matches.length === 1) pickKw(matches[0].kw);
     else if (typed) { applyKeywordState(typed, document.getElementById('url-sel').value || selUrl || urlList[0] || ''); hideDrop(); }
   }
 }
@@ -1235,7 +1783,7 @@ async function generateContentAI() {
 }
 
 async function generateWithServer(prompt) {
-  const res = await fetch('https://easy-baclink-backend.vercel.app/api/generate', {
+  const res = await fetch('/api/generate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -1517,11 +2065,12 @@ document.addEventListener('click', e => {
 });
 
 // ── Close modal on Escape ─────────────────────────────────────────
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeHistoryModal(); hideDrop(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeHistoryModal(); closePreviewModal(); hideDrop(); } });
 
 restoreApiKey();
 initAiEditor();
 refreshHistoryButton();
+refreshPreviewButton();
 </script>
 </body>
 </html>
