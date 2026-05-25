@@ -840,6 +840,7 @@ let activeTab = 'smo';
 let brandName = 'Your Brand', rootUrl = '';
 let aiEditor = null;
 let parsePreview = null;
+const API_BASE_URL = 'https://easy-baclink-backend.vercel.app';
 const FILE_HISTORY_KEY = 'seo_prompt_tool_file_history_v1';
 const SHEET_URL_HISTORY_KEY = 'seo_prompt_tool_sheet_url_history_v1';
 const FILE_HISTORY_LIMIT = 8;
@@ -959,7 +960,7 @@ async function loadGoogleSheetUrl() {
 
 async function fetchGoogleSheetTitle(url, fallbackName) {
   try {
-    const response = await fetch('/api/google-sheet-title?url=' + encodeURIComponent(url));
+    const response = await fetch(API_BASE_URL + '/api/google-sheet-title?url=' + encodeURIComponent(url));
     if (!response.ok) return fallbackName || 'Google Sheet';
     const data = await response.json();
     return data?.title || fallbackName || 'Google Sheet';
@@ -1783,7 +1784,7 @@ async function generateContentAI() {
 }
 
 async function generateWithServer(prompt) {
-  const res = await fetch('/api/generate', {
+  const res = await fetch(API_BASE_URL + '/api/generate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
