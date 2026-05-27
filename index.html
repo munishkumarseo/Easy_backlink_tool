@@ -849,12 +849,14 @@ const SHEET_URL_HISTORY_LIMIT = 12;
 // ── Prompt templates ─────────────────────────────────────────────
 function getPrompt(kw, url) {
   const b = brandName, r = rootUrl;
+  const fresh = 'Freshness rule: Do not use repeated marketing cliches such as "Elevate", "Unlock", "Transform", "Boost", "Discover", "Powerful", "Game-changing", "Next-level", or "Seamless". Vary the opening angle, verbs, sentence rhythm, and examples every time.';
+  const backlinkTone = 'Backlink tone rule: Keep the content informational and topic-first, not promotional or brand-first. Do not write sales copy. Avoid unsupported claims such as customers trust us, pure effective ingredients, curated selection, strict quality standards, or expert-backed products unless those facts are provided in the prompt. Do not make medical, disease-treatment, cure, guaranteed-result, guaranteed-safety, or diagnosis claims. Mention the brand only naturally and briefly where requested.';
   const T = {
-    smo:   () => `Create a professional SMO post. The keyword is: ${kw}\n\nOutput format:\n- One engaging heading\n- One concise post body of 40 to 60 words\n- SEO optimized, natural, and written for social media\n- Use the keyword naturally once in the post body\n- Keep tone clear, polished, and business-friendly\n\nAdd this line exactly at the end:\nVisit our website: ${url}\n\nGUIDELINE: Output only the final SMO post. Do not add explanations, labels, hashtags, emojis, or HTML tags.`,
-    blog:  () => `Write a complete SEO-friendly blog article, not a short answer or outline.\n\nRequired format:\n**Meta Title**\nWrite one SEO title, 50 to 60 characters.\n\n**Meta Description**\nWrite one persuasive meta description, 140 to 160 characters.\n\n# Write a unique blog title about "${kw}"\n\nThen write the article body. The body alone must be at least 1100 words, excluding Meta Title, Meta Description, H1 title, and headings.\n\nBody requirements:\n- A strong opening paragraph directly about "${kw}"\n- 5 to 7 useful H2 sections with topic-specific headings\n- 2 to 4 short paragraphs under most H2 sections\n- Practical tips, benefits, strategy, examples, and buyer guidance\n- Natural SEO tone for business readers\n- Final H2 section must be "## Conclusion" with a useful closing paragraph\n- Do not use generic section titles like "Introduction" or "Overview"\n- Do not use horizontal separators like ---\n\nKeyword: "${kw}"\n\nStrictly within the first body paragraph after the H1 title, bind this link on the given keyword:\nLink: ${url}\nNote: The keyword is not a person.\n\nAdd "${b}" naturally near the bottom of the blog and bind this link on that keyword:\nLink: ${r}\n\nBefore finalizing, self-check that body content is 1100+ words and includes the final Conclusion section.\n\nGUIDELINE: Output in clean Markdown only. Bind links using Markdown format like [keyword](https://example.com/). Do not use HTML tags such as <a> or <br>. Avoid tables unless a comparison table is truly necessary.`,
-    micro: () => `Create a professional micro blog. The keyword is: ${kw}\n\nOutput format:\n- One clear heading\n- Body content of 205 to 250 words\n- 3 short paragraphs only\n- The keyword must appear in the center paragraph of the content\n- Bind this link on the keyword using Markdown format: ${url}\n- Keep the tone informative, polished, and SEO-friendly\n\nGUIDELINE: Output only the final micro blog in clean plain text/Markdown. Do not add explanations, labels, hashtags, emojis, bullet lists, or HTML tags. If you use any HTML tag, regenerate the response.`,
-    ad:    () => `Create an ad title and description of around 50 to 70 words.\nKeyword: "${kw}"\n\nAdd this at the bottom:\nPlease visit our website: ${url}`,
-    image: () => `Create a ready-to-use image generation prompt for an Instagram square post for ${b}.\n\nTopic keyword: "${kw}"\nWebsite: ${url}\nBrand name: ${b}\n\nOutput must include:\n\n**Image Prompt**\nWrite one detailed image prompt for a 1:1 Instagram post. Describe the main visual, scene, objects, background, lighting, style, colors, and composition. Keep it realistic, professional, and suitable for the keyword.\n\n**Text Overlay**\nWrite a short heading of 5 to 8 words for the image.\nWrite one short supporting line of 8 to 14 words.\nInclude the website: ${url}\n\n**Design Direction**\nGive 4 to 6 concise bullets for layout, color palette, typography, spacing, and visual hierarchy.\n\n**Negative Prompt**\nList what the image model should avoid: blurry output, distorted text, extra fingers, wrong logo, watermark, clutter, spelling mistakes, low-resolution design.\n\nGUIDELINE: Do not generate an image. Generate only the final prompt package in clean Markdown. Do not use HTML tags.`,
+    smo:   () => `Create a professional SMO post. The keyword is: ${kw}\n\nOutput format:\n- One engaging heading of 40 to 60 characters\n- One concise post body of 40 to 60 words\n- SEO optimized, natural, and written for social media\n- Use the keyword naturally once in the post body\n- Keep tone clear, polished, and business-friendly\n\nAdd this line exactly at the end:\nVisit our website: ${url}\n\n${backlinkTone}\n\n${fresh}\n\nGUIDELINE: Output only the final SMO post. Do not add explanations, labels, hashtags, emojis, or HTML tags.`,
+    blog:  () => `Write a complete SEO-friendly blog article, not a short answer or outline.\n\nRequired format:\n**Meta Title**\nWrite one SEO title, 50 to 60 characters.\n\n**Meta Description**\nWrite one persuasive meta description, 140 to 160 characters.\n\n# Write a unique blog title about "${kw}"\n\nThen write the article body. The body alone must be at least 1100 words, excluding Meta Title, Meta Description, H1 title, and headings.\n\nBody requirements:\n- A strong opening paragraph directly about "${kw}"\n- 5 to 7 useful H2 sections with topic-specific headings\n- 2 to 4 short paragraphs under most H2 sections\n- Practical tips, benefits, strategy, examples, and buyer guidance\n- Natural SEO tone for business readers\n- Final H2 section must be "## Conclusion" with a useful closing paragraph\n- Do not use generic section titles like "Introduction" or "Overview"\n- Do not use horizontal separators like ---\n\nKeyword: "${kw}"\n\nStrictly within the first body paragraph after the H1 title, bind this link on the given keyword:\nLink: ${url}\nNote: The keyword is not a person.\n\nAdd "${b}" naturally near the bottom of the blog and bind this link on that keyword:\nLink: ${r}\n\nBefore finalizing, self-check that body content is 1100+ words and includes the final Conclusion section.\n\n${backlinkTone}\n\n${fresh}\n\nGUIDELINE: Output in clean Markdown only. Bind links using Markdown format like [keyword](https://example.com/). Do not use HTML tags such as <a> or <br>. Avoid tables unless a comparison table is truly necessary.`,
+    micro: () => `Create a professional micro blog. The keyword is: ${kw}\n\nOutput format:\n- One clear heading of 50 to 70 characters\n- Body content of 205 to 250 words\n- 3 short paragraphs only\n- The keyword must appear in the center paragraph of the content\n- Bind this link on the keyword using Markdown format: ${url}\n- Keep the tone informative, polished, and SEO-friendly\n\n${backlinkTone}\n\n${fresh}\n\nGUIDELINE: Output only the final micro blog in clean plain text/Markdown. Do not add explanations, labels, hashtags, emojis, bullet lists, or HTML tags. If you use any HTML tag, regenerate the response.`,
+    ad:    () => `Create an ad title and description of around 50 to 70 words.\nKeyword: "${kw}"\n\n${fresh}\n\nAdd this at the bottom:\nPlease visit our website: ${url}`,
+    image: () => `Create a ready-to-use image generation prompt for an Instagram square post for ${b}.\n\nTopic keyword: "${kw}"\nWebsite: ${url}\nBrand name: ${b}\n\nOutput must include:\n\n**Image Prompt**\nWrite one detailed image prompt for a 1:1 Instagram post. Describe the main visual, scene, objects, background, lighting, style, colors, and composition. Keep it realistic, professional, and suitable for the keyword.\n\n**Text Overlay**\nWrite a short heading of 5 to 8 words for the image.\nWrite one short supporting line of 8 to 14 words.\nInclude the website: ${url}\n\n**Design Direction**\nGive 4 to 6 concise bullets for layout, color palette, typography, spacing, and visual hierarchy.\n\n**Negative Prompt**\nList what the image model should avoid: blurry output, distorted text, extra fingers, wrong logo, watermark, clutter, spelling mistakes, low-resolution design.\n\n${fresh}\n\nGUIDELINE: Do not generate an image. Generate only the final prompt package in clean Markdown. Do not use HTML tags.`,
   };
   return (T[activeTab] || T.smo)();
 }
@@ -1602,10 +1604,6 @@ function findKeywordMatch(value) {
   return kwData.find(k => k.kw.toLowerCase() === typed) || null;
 }
 
-function handleKeywordTyping() {
-  buildDrop(document.getElementById('kw-in').value);
-}
-
 function handleKeywordKeydown(e) {
   if (e.key === 'Enter') {
     e.preventDefault();
@@ -1962,44 +1960,6 @@ function markdownToHtml(text) {
   flushParagraph();
   closeSpecial();
   return html || htmlFromPlainText(src);
-}
-
-function execCmd(cmd, val = null) {
-  if (!aiEditor) {
-    focusAiOutput();
-    document.execCommand(cmd, false, val);
-  }
-  cleanupEmptyOutput();
-}
-
-function formatBlock(tag) {
-  if (!tag) return;
-  if (aiEditor) {
-    aiEditor.execCommand('formatBlock', false, tag === 'p' ? 'p' : tag);
-  } else {
-    focusAiOutput();
-    document.execCommand('formatBlock', false, tag === 'p' ? 'P' : tag.toUpperCase());
-  }
-  cleanupEmptyOutput();
-}
-
-function insertLink() {
-  const url = prompt('Enter link URL');
-  if (!url) return;
-  if (aiEditor) {
-    aiEditor.execCommand('createLink', false, url);
-  } else {
-    focusAiOutput();
-    document.execCommand('createLink', false, url);
-  }
-  cleanupEmptyOutput();
-}
-
-function focusAiOutput() {
-  const wrap = document.getElementById('ai-editor-wrap');
-  if (aiEditor) aiEditor.focus();
-  else getAiEditorRoot().focus();
-  wrap.classList.remove('is-empty');
 }
 
 function cleanupEmptyOutput() {
