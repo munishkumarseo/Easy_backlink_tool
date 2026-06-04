@@ -12,14 +12,14 @@
 <style>
 :root {
   --bg: #ffffff;
-  --surface: #F7F8FA;
-  --border: #E5E7EB;
+  --surface: #F5F7F6;
+  --border: #DDE3E0;
   --text: #111827;
   --muted: #9CA3AF;
-  --blue: #2563EB;
-  --blue-lt: #EFF6FF;
-  --green: #16A34A;
-  --green-lt: #F0FDF4;
+  --blue: #1F7A3F;
+  --blue-lt: #EAF4EE;
+  --green: #1F7A3F;
+  --green-lt: #EAF4EE;
   --red: #DC2626;
   --red-lt: #FEF2F2;
 }
@@ -30,7 +30,7 @@ html {
 body {
   font-family: 'Inter', sans-serif;
   background:
-    linear-gradient(180deg, #EAF0F8 0%, #F8FAFC 300px, #F3F6FB 100%);
+    linear-gradient(180deg, #F4F7F5 0%, #FAFBFA 300px, #F5F7F6 100%);
   color: var(--text);
   min-height: 100vh;
   padding: 0 18px 56px;
@@ -59,7 +59,7 @@ body {
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #111827 0%, #2563EB 100%);
+  background: linear-gradient(135deg, #1C231F 0%, #1F7A3F 100%);
   color: #fff;
   display: flex;
   align-items: center;
@@ -107,15 +107,15 @@ body {
   padding: 9px 13px;
   border-radius: 8px;
 }
-.nav-cta:hover { background: #1D4ED8; }
+.nav-cta:hover { background: #137333; }
 .landing-hero {
   max-width: none;
   margin: 0 auto 12px;
   background:
-    linear-gradient(135deg, rgba(37,99,235,.22) 0%, rgba(15,23,42,0) 48%),
-    #0F172A;
+    linear-gradient(135deg, rgba(31,122,63,.18) 0%, rgba(28,35,31,0) 50%),
+    #171C19;
   color: #fff;
-  border: 1px solid #1E293B;
+  border: 1px solid #2D3932;
   border-radius: 16px;
   overflow: hidden;
   display: grid;
@@ -129,7 +129,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #BAE6FD;
+  color: #B9D9C4;
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
@@ -141,7 +141,7 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 99px;
-  background: #22C55E;
+  background: #3BAE68;
 }
 .hero-copy h1 {
   font-family: 'Manrope', sans-serif;
@@ -184,7 +184,7 @@ body {
   max-width: 560px;
 }
 .hero-proof div {
-  border: 1px solid #263449;
+  border: 1px solid #2D3932;
   border-radius: 10px;
   padding: 10px 11px;
   background: rgba(255,255,255,.03);
@@ -209,9 +209,9 @@ body {
 }
 .preview-console {
   width: 100%;
-  border: 1px solid #263449;
+  border: 1px solid #2D3932;
   border-radius: 14px;
-  background: #111827;
+  background: #171C19;
   box-shadow: 0 24px 60px rgba(0,0,0,.28);
   overflow: hidden;
 }
@@ -219,11 +219,37 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   padding: 12px 14px;
-  border-bottom: 1px solid #263449;
+  border-bottom: 1px solid #2D3932;
   color: #CBD5E1;
   font-size: 11px;
   font-weight: 800;
+}
+.console-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.sheet-link-btn {
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid #CEEAD6;
+  border-radius: 7px;
+  background: #E6F4EA;
+  color: #137333;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 10.5px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.sheet-link-btn:hover {
+  background: #DDF2E3;
+  color: #0B5D1E;
 }
 .console-dots { display: flex; gap: 5px; }
 .console-dots span {
@@ -237,63 +263,24 @@ body {
   display: grid;
   gap: 10px;
 }
-.demo-sheet {
-  border: 1px solid #263449;
-  border-radius: 10px;
+.sheet-shot-wrap {
+  border: 1px solid #334155;
+  border-radius: 11px;
   overflow: hidden;
-  background: #0B1220;
+  background: #fff;
 }
-.demo-sheet-row {
-  display: grid;
-  grid-template-columns: 38px minmax(160px, 1.45fr) 78px 92px 92px minmax(92px, .9fr);
-  min-width: 620px;
+.sheet-shot-img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
-.demo-sheet-scroll {
-  overflow-x: auto;
-}
-.demo-cell {
-  min-height: 34px;
-  padding: 8px 9px;
-  border-right: 1px solid #263449;
-  border-bottom: 1px solid #263449;
-  color: #DCE7F5;
-  font-size: 11px;
-  line-height: 1.35;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.demo-cell:last-child { border-right: 0; }
-.demo-title .demo-cell {
-  background: #132238;
-  color: #BAE6FD;
-  font-weight: 800;
-}
-.demo-target .demo-cell {
-  background: #0E1A2B;
-}
-.demo-header .demo-cell {
-  background: #1D4ED8;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-}
-.demo-link {
-  color: #38BDF8;
-  font-weight: 700;
-}
-.demo-muted { color: #94A3B8; }
-.demo-status {
-  color: #86EFAC;
-  font-weight: 800;
-}
-.demo-note {
-  color: #94A3B8;
+.sheet-shot-note {
+  padding: 9px 12px 10px;
+  border-top: 1px solid #DAE6DD;
+  color: #3F5F4B;
+  background: #F1F8F3;
   font-size: 10.5px;
   line-height: 1.45;
-  padding: 10px 12px 0;
 }
 .feature-band {
   max-width: none;
@@ -322,7 +309,7 @@ body {
 .app { width: 100%; max-width: none; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
 .tool-section-head {
   background:
-    linear-gradient(90deg, #FFFFFF 0%, #F8FBFF 100%);
+    linear-gradient(90deg, #FFFFFF 0%, #F6FAF7 100%);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 16px 18px;
@@ -384,7 +371,7 @@ body {
 }
 .setup-column .ai-head-card {
   background:
-    linear-gradient(135deg, #FFFFFF 0%, #EFF6FF 100%);
+    linear-gradient(135deg, #FFFFFF 0%, #F4F8F5 100%);
 }
 .setup-column .ai-head-card .hdr h1 {
   font-size: 16px;
@@ -397,82 +384,140 @@ body {
 }
 .work-column .pane .row {
   min-height: 610px;
+  display: flex;
+  flex-direction: column;
 }
 .faq-section {
   max-width: none;
   margin: 18px auto 0;
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 22px;
-  box-shadow: 0 10px 28px rgba(15,23,42,.035);
+  background: #171C19;
+  border: 1px solid #2D3932;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 18px 44px rgba(15,23,42,.10);
+}
+.faq-layout {
+  display: grid;
+  grid-template-columns: minmax(270px, 34%) minmax(0, 1fr);
+  min-height: 350px;
 }
 .faq-head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 18px;
-  margin-bottom: 12px;
+  padding: 30px 28px;
+  border-right: 1px solid #2D3932;
+  background:
+    linear-gradient(145deg, rgba(31,122,63,.18), rgba(31,122,63,0) 52%),
+    #171C19;
 }
+.faq-head .lbl { color: #9DB6A7; }
 .faq-head h2 {
+  margin-top: 10px;
+  max-width: 380px;
+  color: #fff;
   font-family: 'Manrope', sans-serif;
-  font-size: 24px;
-  line-height: 1.2;
+  font-size: 30px;
+  line-height: 1.1;
 }
 .faq-head p {
-  max-width: 520px;
-  color: #6B7280;
+  margin-top: 14px;
+  max-width: 390px;
+  color: #B9C7BE;
   font-size: 13px;
-  line-height: 1.6;
+  line-height: 1.7;
+}
+.faq-steps {
+  display: grid;
+  gap: 8px;
+  margin-top: 24px;
+}
+.faq-steps span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #E7EFEA;
+  font-size: 12px;
+  font-weight: 700;
+}
+.faq-steps span::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3BAE68;
+  box-shadow: 0 0 0 4px rgba(59,174,104,.14);
 }
 .faq-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
+  align-content: start;
+  gap: 10px;
+  padding: 22px;
+  background: #F8FAF9;
+  counter-reset: faq;
 }
 .faq-item {
-  border: 1px solid var(--border);
+  border: 1px solid #DDE3E0;
   border-radius: 12px;
-  background: #FAFBFC;
+  background: #fff;
   overflow: hidden;
+  box-shadow: 0 1px 0 rgba(15,23,42,.02);
+}
+.faq-item[open] {
+  border-color: #BFD8C8;
+  box-shadow: 0 12px 28px rgba(15,23,42,.055);
 }
 .faq-item summary {
   cursor: pointer;
   list-style: none;
-  padding: 14px 46px 14px 15px;
+  min-height: 56px;
+  padding: 15px 54px 15px 58px;
   font-size: 13px;
   font-weight: 800;
   position: relative;
+  display: flex;
+  align-items: center;
 }
-.faq-item summary::after {
-  content: "+";
+.faq-item summary::before {
+  counter-increment: faq;
+  content: counter(faq, decimal-leading-zero);
   position: absolute;
-  right: 14px;
+  left: 16px;
   top: 50%;
-  width: 24px;
-  height: 24px;
   transform: translateY(-50%);
-  border: 1px solid var(--border);
-  border-radius: 7px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--blue);
-  background: #fff;
-  font-size: 17px;
-  line-height: 1;
+  background: #F2F6F4;
+  color: #66756B;
+  font-size: 10px;
+  font-weight: 900;
+}
+.faq-item summary::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 28px;
+  height: 28px;
+  transform: translateY(-50%);
+  border: 1px solid #DDE3E0;
+  border-radius: 8px;
+  background: #fff center / 13px 13px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%231F7A3F' stroke-width='2.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  transition: transform .15s ease, border-color .15s ease, background-color .15s ease;
 }
 .faq-item[open] summary::after {
-  content: "-";
-  color: #4B5563;
+  border-color: #BFD8C8;
+  background-color: #F2F8F4;
+  transform: translateY(-50%) rotate(180deg);
 }
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-item p {
-  border-top: 1px solid var(--border);
-  padding: 12px 15px 14px;
+  max-width: 880px;
+  padding: 0 54px 18px 58px;
   color: #4B5563;
-  font-size: 12.5px;
-  line-height: 1.65;
+  font-size: 12.8px;
+  line-height: 1.75;
 }
 @media (max-width: 1160px) {
   .tool-workspace { grid-template-columns: 1fr; }
@@ -482,6 +527,10 @@ body {
   .work-column .pane .row {
     min-height: 0;
   }
+  .work-column textarea#prompt-out,
+  .work-column .ai-editor-wrap {
+    min-height: 360px;
+  }
 }
 @media (max-width: 900px) {
   .landing-hero { grid-template-columns: 1fr; }
@@ -489,7 +538,10 @@ body {
   .feature-band { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tool-section-head { display: block; }
   .tool-status-pill { display: inline-flex; margin-top: 10px; }
-  .faq-grid { grid-template-columns: 1fr; }
+  .faq-layout { grid-template-columns: 1fr; min-height: auto; }
+  .faq-head { border-right: 0; border-bottom: 1px solid #2D3932; }
+  .faq-head h2,
+  .faq-head p { max-width: none; }
 }
 @media (max-width: 640px) {
   body { padding-inline: 10px; }
@@ -501,9 +553,14 @@ body {
   .hero-proof { grid-template-columns: 1fr; }
   .hero-preview { padding: 0 20px 20px; }
   .feature-band { grid-template-columns: 1fr; }
-  .faq-section { padding: 16px; }
-  .faq-head { display: block; }
-  .faq-head p { margin-top: 8px; }
+  .faq-section { border-radius: 14px; }
+  .faq-head { padding: 24px 20px; }
+  .faq-head h2 { font-size: 25px; }
+  .faq-grid { padding: 14px; }
+  .faq-item summary { padding: 14px 48px 14px 52px; }
+  .faq-item summary::before { left: 12px; }
+  .faq-item summary::after { right: 12px; }
+  .faq-item p { padding: 0 16px 16px 52px; }
 }
 
 /* Header */
@@ -533,7 +590,7 @@ body {
 .upload-zone:hover, .upload-zone.drag {
   border-color: var(--blue);
   background: var(--blue-lt);
-  box-shadow: 0 8px 24px rgba(37, 99, 235, .08);
+  box-shadow: 0 8px 24px rgba(31, 122, 63, .08);
 }
 .upload-zone input { display: none; }
 .upload-zone > svg {
@@ -551,10 +608,10 @@ body {
 .upload-note {
   margin: 0 0 10px;
   padding: 10px 12px;
-  border: 1px solid #DBEAFE;
+  border: 1px solid #CEEAD6;
   border-radius: 9px;
   background: var(--blue-lt);
-  color: #1E3A8A;
+  color: #24513A;
   font-size: 12px;
   line-height: 1.5;
 }
@@ -572,6 +629,34 @@ body {
 }
 .sheet-url-row .btn {
   min-width: 104px;
+}
+.upload-or {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 10px;
+  color: #137333;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.upload-or::before,
+.upload-or::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: #CEEAD6;
+}
+.upload-or span {
+  min-width: 28px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #CEEAD6;
+  border-radius: 999px;
+  background: #F1F8F3;
 }
 @media (max-width: 640px) {
   .sheet-url-row {
@@ -666,8 +751,8 @@ body {
   gap: 8px;
 }
 .preview-dup {
-  border: 1px solid #DBEAFE;
-  background: #F8FBFF;
+  border: 1px solid #CEEAD6;
+  background: #F8FBF9;
   border-radius: 9px;
   padding: 9px 10px;
   font-size: 12px;
@@ -692,7 +777,7 @@ body {
 .hist-item-meta { margin-top: 4px; font-size: 11px; color: var(--muted); }
 .hist-item-right { display:flex; align-items:center; gap:8px; flex-shrink: 0; }
 .hist-use {
-  background: var(--blue-lt); color: var(--blue); border: 1px solid #DBEAFE; border-radius: 999px;
+  background: var(--blue-lt); color: var(--blue); border: 1px solid #CEEAD6; border-radius: 999px;
   font-size: 10.5px; font-weight: 700; padding: 4px 8px;
 }
 .hist-del {
@@ -798,9 +883,9 @@ select {
   bottom: 1px;
   width: 34px;
   pointer-events: none;
-  border-left: 1px solid #DBEAFE;
+  border-left: 1px solid #CEEAD6;
   border-radius: 0 7px 7px 0;
-  background: #EFF6FF;
+  background: #F1F8F3;
 }
 .url-select-wrap::after {
   content: "";
@@ -812,7 +897,7 @@ select {
   height: 14px;
   transform: translateY(-50%);
   pointer-events: none;
-  background: center / 14px 14px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232563EB' stroke-width='2.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background: center / 14px 14px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231F7A3F' stroke-width='2.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
 }
 .url-select-wrap.has-options::before,
 .url-select-wrap.has-options::after {
@@ -860,7 +945,7 @@ select {
 /* Tabs */
 .tabs { display: flex; gap: 4px; background: var(--surface); border-radius: 9px; padding: 4px; }
 .tab { flex: 1; padding: 9px 6px; border: 1px solid transparent; border-radius: 7px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 800; color: #475569; background: transparent; cursor: pointer; transition: all .15s; }
-.tab.on { background: #fff; color: var(--blue); border-color: #DBEAFE; box-shadow: 0 2px 8px rgba(37,99,235,.12); }
+.tab.on { background: #fff; color: var(--blue); border-color: #CEEAD6; box-shadow: 0 2px 8px rgba(31,122,63,.12); }
 
 /* Prompt */
 textarea#prompt-out {
@@ -875,7 +960,7 @@ textarea#prompt-out.ph { color: var(--muted); font-style: italic; }
 .btn-row { display: flex; gap: 6px; align-items: center; margin-bottom: 8px; }
 .btn { padding: 6px 13px; border: none; border-radius: 7px; font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 600; cursor: pointer; transition: all .15s; }
 .btn-blue { background: var(--blue); color: #fff; }
-.btn-blue:hover { background: #1D4ED8; }
+.btn-blue:hover { background: #137333; }
 .btn-blue.ok { background: var(--green); }
 .btn-outline { background: transparent; color: #6B7280; border: 1px solid var(--border); }
 .btn-outline:hover { background: var(--surface); }
@@ -927,10 +1012,10 @@ textarea#prompt-out.ph { color: var(--muted); font-style: italic; }
 }
 .gen-actions .lbl { min-width: 88px; }
 .gen-actions .btn { white-space: nowrap; }
-.btn-green { background:#22C55E; color:#fff; }
-.btn-green:hover { background:#16A34A; }
-.btn-purple { background:#5865F2; color:#fff; }
-.btn-purple:hover { background:#4752C4; }
+.btn-green { background:var(--blue); color:#fff; }
+.btn-green:hover { background:#166A35; }
+.btn-purple { background:#374151; color:#fff; }
+.btn-purple:hover { background:#1F2937; }
 .btn:disabled { opacity:.55; cursor:not-allowed; }
 .ai-status {
   font-size:11.5px;
@@ -949,11 +1034,15 @@ textarea#prompt-out.ph { color: var(--muted); font-style: italic; }
   border:1px solid var(--border);
   border-radius:12px;
   overflow:hidden;
+  display: flex;
+  flex-direction: column;
 }
 .ai-editor-wrap:focus-within { border-color: var(--blue); background:#fff; }
 .ai-editor-wrap .jodit-container {
   border:0;
   font-family:'Inter', sans-serif;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 .ai-editor-wrap .jodit-toolbar__box {
   border-width: 0 0 1px;
@@ -1055,6 +1144,23 @@ textarea#prompt-out {
   background: #FBFBFC;
   padding: 16px;
 }
+.work-column textarea#prompt-out,
+.work-column .ai-editor-wrap {
+  flex: 1 1 auto;
+  min-height: 430px;
+}
+.work-column .ai-editor-wrap .jodit-container {
+  height: 100% !important;
+  min-height: 0 !important;
+}
+.work-column .ai-editor-wrap .jodit-workplace {
+  flex: 1 1 auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+.work-column .ai-editor-wrap .jodit-wysiwyg {
+  min-height: 0;
+}
 
 /* ── MODAL ─────────────────────────────────────────────────────── */
 .modal-bg {
@@ -1140,15 +1246,15 @@ textarea#prompt-out {
   color: var(--muted); flex: 1;
 }
 .modal-cat-url {
-  font-size: 11px; color: #2563EB;
+  font-size: 11px; color: var(--blue);
   max-width: 360px; overflow: hidden;
   text-overflow: ellipsis; white-space: nowrap;
 }
 .modal-cat-count {
   font-size: 10.5px;
   color: var(--blue);
-  background: #DBEAFE;
-  border: 1px solid #BFDBFE;
+  background: #E6F4EA;
+  border: 1px solid #CEEAD6;
   border-radius: 999px;
   padding: 2px 7px;
   font-weight: 800;
@@ -1204,73 +1310,31 @@ textarea#prompt-out {
   <section class="landing-hero" aria-label="SEO Prompt Tool introduction">
     <div class="hero-copy">
       <div class="hero-kicker">Backlink Content Workflow</div>
-      <h1>Turn keyword sheets into clean prompts and usable SEO content.</h1>
-      <p>Upload an Excel file or public Google Sheet, select a keyword, choose the content type, and generate structured backlink-ready content with target links, rich copy, preview checks, and saved history.</p>
+      <h1>Upload your sheet and auto-bind every keyword to its target link.</h1>
+      <p>The tool reads your Excel file or public Google Sheet, matches each keyword with the right target URL, and keeps the link ready. You only search the keyword, select the backlink type, and generate editable SEO content.</p>
       <div class="hero-actions">
         <a class="hero-btn primary" href="#tool">Open the Tool</a>
         <a class="hero-btn secondary" href="#faq">How it works</a>
       </div>
       <div class="hero-proof">
-        <div><strong>5</strong><span>Prompt types for backlinks and content</span></div>
-        <div><strong>Sheet</strong><span>Excel and public Google Sheet support</span></div>
-        <div><strong>QA</strong><span>Preview, history, rich copy, and URL handling</span></div>
+        <div><strong>Auto</strong><span>Target links bind with matching keywords</span></div>
+        <div><strong>Search</strong><span>Find a keyword and pick its URL variant</span></div>
+        <div><strong>Type</strong><span>Select SMO, blog, micro, ad, or image prompts</span></div>
       </div>
     </div>
-    <div class="hero-preview" aria-hidden="true">
+    <div class="hero-preview">
       <div class="preview-console">
         <div class="console-bar">
           <span>Demo keyword sheet</span>
-          <div class="console-dots"><span></span><span></span><span></span></div>
+          <div class="console-actions">
+            <a class="sheet-link-btn" href="https://docs.google.com/spreadsheets/d/1m0yxqz4QPVN6ZxhBq8txg9LrpPbGF0mAshqwfP8jyfo/edit?gid=987654321#gid=987654321" target="_blank" rel="noopener noreferrer">Open Sheet</a>
+            <div class="console-dots"><span></span><span></span><span></span></div>
+          </div>
         </div>
         <div class="console-body">
-          <div class="demo-sheet">
-            <div class="demo-sheet-scroll">
-              <div class="demo-sheet-row demo-title">
-                <div class="demo-cell"></div>
-                <div class="demo-cell" style="grid-column: span 5;">Keyword Research Report: <span class="demo-link">https://www.northbridge-demo.example/</span></div>
-              </div>
-              <div class="demo-sheet-row demo-target">
-                <div class="demo-cell">URL</div>
-                <div class="demo-cell demo-link">https://www.northbridge-demo.example/collections/workplace-kits</div>
-                <div class="demo-cell"></div>
-                <div class="demo-cell">Page Status</div>
-                <div class="demo-cell demo-status">Existing</div>
-                <div class="demo-cell">Category Page</div>
-              </div>
-              <div class="demo-sheet-row demo-header">
-                <div class="demo-cell">#</div>
-                <div class="demo-cell">Main Keyword</div>
-                <div class="demo-cell">Volume</div>
-                <div class="demo-cell">Difficulty</div>
-                <div class="demo-cell">Position</div>
-                <div class="demo-cell">Ranking URL</div>
-              </div>
-              <div class="demo-sheet-row">
-                <div class="demo-cell">1</div>
-                <div class="demo-cell">workplace safety kits</div>
-                <div class="demo-cell">480</div>
-                <div class="demo-cell">34</div>
-                <div class="demo-cell demo-muted">-</div>
-                <div class="demo-cell demo-muted">-</div>
-              </div>
-              <div class="demo-sheet-row">
-                <div class="demo-cell">2</div>
-                <div class="demo-cell">industrial storage bins</div>
-                <div class="demo-cell">260</div>
-                <div class="demo-cell">28</div>
-                <div class="demo-cell demo-muted">-</div>
-                <div class="demo-cell demo-muted">-</div>
-              </div>
-              <div class="demo-sheet-row">
-                <div class="demo-cell">3</div>
-                <div class="demo-cell">commercial cleaning carts</div>
-                <div class="demo-cell">170</div>
-                <div class="demo-cell">19</div>
-                <div class="demo-cell demo-muted">-</div>
-                <div class="demo-cell demo-muted">-</div>
-              </div>
-            </div>
-            <div class="demo-note">Demo only. The layout mirrors the keyword-only sheet structure while using fake brand details and sample keywords.</div>
+          <div class="sheet-shot-wrap">
+            <img class="sheet-shot-img" src="demo-keyword-sheet.png" alt="Demo keyword sheet structure"/>
+            <div class="sheet-shot-note">Demo only. The layout mirrors the keyword-only sheet structure while using fake brand details and sample keywords.</div>
           </div>
         </div>
       </div>
@@ -1337,12 +1401,13 @@ textarea#prompt-out {
               </div>
             </div>
             <div class="upload-note">
-              <strong>Start here:</strong> Upload your keyword sheet first. The tool will read keywords From target URLs from the Googlefile, then you can select a keyword and generate content.
+              <strong>Start here:</strong> Upload your keyword sheet or paste a public Google Sheet URL. The tool will read the keywords, bind each one to its target URL, and prepare the right link when you select a keyword.
             </div>
             <div class="sheet-url-row">
               <input id="sheet-url-in" type="url" placeholder="Paste public Google Sheet URL…"/>
               <button class="btn btn-blue" id="sheet-url-btn" type="button" onclick="loadGoogleSheetUrl()">Load URL</button>
             </div>
+            <div class="upload-or"><span>OR</span></div>
             <div class="upload-zone" id="upload-zone"
               onclick="document.getElementById('f-in').click()"
               ondragover="event.preventDefault();this.classList.add('drag')"
@@ -1450,38 +1515,43 @@ textarea#prompt-out {
   </div>
 
   <section class="faq-section" id="faq">
-    <div class="faq-head">
-      <div>
+    <div class="faq-layout">
+      <div class="faq-head">
         <div class="lbl">FAQs</div>
         <h2>How this SEO prompt tool works</h2>
+        <p>A quick reference for the upload flow, keyword matching, Google Sheet loading, AI output, and backlink content workflow.</p>
+        <div class="faq-steps" aria-label="Tool workflow">
+          <span>Upload or load a public sheet</span>
+          <span>Select keyword and target URL</span>
+          <span>Generate, edit, and copy output</span>
+        </div>
       </div>
-      <p>Use these answers to understand the upload flow, keyword matching, Google Sheet loading, AI output, and where this tool fits in a backlink content workflow.</p>
-    </div>
-    <div class="faq-grid">
-      <details class="faq-item">
-        <summary>What does this tool do?</summary>
-        <p>It reads a keyword sheet, matches each keyword with its target URL, generates editable prompts, and sends those prompts to the AI generator for SMO posts, blogs, micro blogs, ads, and image prompt packages.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Can it load Google Sheets?</summary>
-        <p>Yes. Paste a public Google Sheet URL and the tool fetches the sheet fresh, parses keywords and target links, and supports complex product-link sheets with multiple variants under one keyword.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Why does the Target URL dropdown change?</summary>
-        <p>If a keyword has multiple product links or variants, the dropdown shows those URL options. If only one link is available, it behaves like a simple target URL field with copy and preview controls.</p>
-      </details>
-      <details class="faq-item">
-        <summary>What content types are supported?</summary>
-        <p>The tool currently supports SMO, blog, micro blog, ad, and image prompt formats. Each type uses a different prompt template and tone rules for backlink-friendly content generation.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Does it write promotional content?</summary>
-        <p>Non-ad prompt types are designed to stay informational and topic-first. The prompts and backend guardrails restrict sales language, unsupported claims, medical claims, and first-person brand promotion.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Can I copy formatted AI output?</summary>
-        <p>Yes. Use Rich Copy to copy formatted output from the editor, or Plain Text to simplify it. The generated prompt itself can also be copied and edited before generation.</p>
-      </details>
+      <div class="faq-grid">
+        <details class="faq-item">
+          <summary>What does this tool do?</summary>
+          <p>It reads a keyword sheet, matches each keyword with its target URL, generates editable prompts, and sends those prompts to the AI generator for SMO posts, blogs, micro blogs, ads, and image prompt packages.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can it load Google Sheets?</summary>
+          <p>Yes. Paste a public Google Sheet URL and the tool fetches the sheet fresh, parses keywords and target links, and supports complex product-link sheets with multiple variants under one keyword.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Why does the Target URL dropdown change?</summary>
+          <p>If a keyword has multiple product links or variants, the dropdown shows those URL options. If only one link is available, it behaves like a simple target URL field with copy and preview controls.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What content types are supported?</summary>
+          <p>The tool currently supports SMO, blog, micro blog, ad, and image prompt formats. Each type uses a different prompt template and tone rules for backlink-friendly content generation.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Does it write promotional content?</summary>
+          <p>Non-ad prompt types are designed to stay informational and topic-first. The prompts and backend guardrails restrict sales language, unsupported claims, medical claims, and first-person brand promotion.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I copy formatted AI output?</summary>
+          <p>Yes. Use Rich Copy to copy formatted output from the editor, or Plain Text to simplify it. The generated prompt itself can also be copied and edited before generation.</p>
+        </details>
+      </div>
     </div>
   </section>
 </div>
@@ -2948,6 +3018,44 @@ restoreApiKey();
 initAiEditor();
 refreshHistoryButton();
 refreshPreviewButton();
+</script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
 </script>
 </body>
 </html>
