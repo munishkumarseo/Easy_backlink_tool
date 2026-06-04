@@ -24,17 +24,487 @@
   --red-lt: #FEF2F2;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html {
+  scroll-behavior: smooth;
+}
 body {
   font-family: 'Inter', sans-serif;
-  background: var(--surface);
+  background:
+    linear-gradient(180deg, #EAF0F8 0%, #F8FAFC 300px, #F3F6FB 100%);
   color: var(--text);
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  padding: 20px 16px 40px;
+  padding: 0 18px 56px;
 }
 
-.app { width: 100%; max-width: 1120px; display: flex; flex-direction: column; gap: 10px; }
+.site-shell {
+  width: 100%;
+}
+.site-nav {
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding: 16px 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.site-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #111827 0%, #2563EB 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+}
+.site-brand strong {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px;
+  line-height: 1.1;
+}
+.site-brand span {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: #6B7280;
+}
+.site-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.nav-link {
+  color: #4B5563;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+.nav-link:hover {
+  color: var(--blue);
+  background: #fff;
+}
+.nav-cta {
+  background: var(--blue);
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 9px 13px;
+  border-radius: 8px;
+}
+.nav-cta:hover { background: #1D4ED8; }
+.landing-hero {
+  max-width: none;
+  margin: 0 auto 12px;
+  background:
+    linear-gradient(135deg, rgba(37,99,235,.22) 0%, rgba(15,23,42,0) 48%),
+    #0F172A;
+  color: #fff;
+  border: 1px solid #1E293B;
+  border-radius: 16px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, .92fr);
+  min-height: 332px;
+}
+.hero-copy {
+  padding: 36px 40px 34px;
+}
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #BAE6FD;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 14px;
+}
+.hero-kicker::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+  background: #22C55E;
+}
+.hero-copy h1 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 38px;
+  line-height: 1.06;
+  max-width: 680px;
+  letter-spacing: 0;
+}
+.hero-copy p {
+  margin-top: 16px;
+  max-width: 620px;
+  color: #CBD5E1;
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 800;
+}
+.hero-btn.primary { background: #fff; color: #111827; }
+.hero-btn.secondary { border: 1px solid #334155; color: #E5E7EB; }
+.hero-proof {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 24px;
+  max-width: 560px;
+}
+.hero-proof div {
+  border: 1px solid #263449;
+  border-radius: 10px;
+  padding: 10px 11px;
+  background: rgba(255,255,255,.03);
+}
+.hero-proof strong {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+}
+.hero-proof span {
+  display: block;
+  margin-top: 4px;
+  color: #94A3B8;
+  font-size: 10.5px;
+  line-height: 1.35;
+}
+.hero-preview {
+  min-height: 332px;
+  padding: 28px 28px 28px 0;
+  display: flex;
+  align-items: center;
+}
+.preview-console {
+  width: 100%;
+  border: 1px solid #263449;
+  border-radius: 14px;
+  background: #111827;
+  box-shadow: 0 24px 60px rgba(0,0,0,.28);
+  overflow: hidden;
+}
+.console-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid #263449;
+  color: #CBD5E1;
+  font-size: 11px;
+  font-weight: 800;
+}
+.console-dots { display: flex; gap: 5px; }
+.console-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: #475569;
+}
+.console-body {
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+}
+.demo-sheet {
+  border: 1px solid #263449;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0B1220;
+}
+.demo-sheet-row {
+  display: grid;
+  grid-template-columns: 38px minmax(160px, 1.45fr) 78px 92px 92px minmax(92px, .9fr);
+  min-width: 620px;
+}
+.demo-sheet-scroll {
+  overflow-x: auto;
+}
+.demo-cell {
+  min-height: 34px;
+  padding: 8px 9px;
+  border-right: 1px solid #263449;
+  border-bottom: 1px solid #263449;
+  color: #DCE7F5;
+  font-size: 11px;
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.demo-cell:last-child { border-right: 0; }
+.demo-title .demo-cell {
+  background: #132238;
+  color: #BAE6FD;
+  font-weight: 800;
+}
+.demo-target .demo-cell {
+  background: #0E1A2B;
+}
+.demo-header .demo-cell {
+  background: #1D4ED8;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.demo-link {
+  color: #38BDF8;
+  font-weight: 700;
+}
+.demo-muted { color: #94A3B8; }
+.demo-status {
+  color: #86EFAC;
+  font-weight: 800;
+}
+.demo-note {
+  color: #94A3B8;
+  font-size: 10.5px;
+  line-height: 1.45;
+  padding: 10px 12px 0;
+}
+.feature-band {
+  max-width: none;
+  margin: 0 auto 12px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.feature-item {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 14px;
+  box-shadow: 0 8px 24px rgba(15,23,42,.035);
+}
+.feature-item strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+.feature-item span {
+  color: #6B7280;
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+.app { width: 100%; max-width: none; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.tool-section-head {
+  background:
+    linear-gradient(90deg, #FFFFFF 0%, #F8FBFF 100%);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  box-shadow: 0 10px 28px rgba(15,23,42,.04);
+}
+.tool-section-head h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px;
+  line-height: 1.2;
+}
+.tool-section-head p {
+  margin-top: 5px;
+  max-width: 760px;
+  color: #6B7280;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.tool-status-pill {
+  flex-shrink: 0;
+  border: 1px solid #BFDBFE;
+  background: var(--blue-lt);
+  color: var(--blue);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 11px;
+  font-weight: 800;
+}
+.tool-workspace {
+  display: grid;
+  grid-template-columns: minmax(320px, 410px) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+.setup-column,
+.work-column {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.setup-column {
+  position: sticky;
+  top: 12px;
+}
+.setup-column .card,
+.work-column .card {
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(15,23,42,.035);
+}
+.setup-column .row {
+  padding: 13px 14px;
+}
+.setup-column .ai-head-card .row {
+  padding: 16px;
+}
+.setup-column .ai-head-card {
+  background:
+    linear-gradient(135deg, #FFFFFF 0%, #EFF6FF 100%);
+}
+.setup-column .ai-head-card .hdr h1 {
+  font-size: 16px;
+}
+.work-column .split-card {
+  min-height: 690px;
+}
+.work-column .split-body {
+  min-height: 610px;
+}
+.work-column .pane .row {
+  min-height: 610px;
+}
+.faq-section {
+  max-width: none;
+  margin: 18px auto 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 10px 28px rgba(15,23,42,.035);
+}
+.faq-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 12px;
+}
+.faq-head h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 24px;
+  line-height: 1.2;
+}
+.faq-head p {
+  max-width: 520px;
+  color: #6B7280;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #FAFBFC;
+  overflow: hidden;
+}
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 14px 46px 14px 15px;
+  font-size: 13px;
+  font-weight: 800;
+  position: relative;
+}
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  transform: translateY(-50%);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue);
+  background: #fff;
+  font-size: 17px;
+  line-height: 1;
+}
+.faq-item[open] summary::after {
+  content: "-";
+  color: #4B5563;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item p {
+  border-top: 1px solid var(--border);
+  padding: 12px 15px 14px;
+  color: #4B5563;
+  font-size: 12.5px;
+  line-height: 1.65;
+}
+@media (max-width: 1160px) {
+  .tool-workspace { grid-template-columns: 1fr; }
+  .setup-column { position: static; }
+  .work-column .split-card,
+  .work-column .split-body,
+  .work-column .pane .row {
+    min-height: 0;
+  }
+}
+@media (max-width: 900px) {
+  .landing-hero { grid-template-columns: 1fr; }
+  .hero-preview { padding: 0 28px 28px; min-height: auto; }
+  .feature-band { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tool-section-head { display: block; }
+  .tool-status-pill { display: inline-flex; margin-top: 10px; }
+  .faq-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  body { padding-inline: 10px; }
+  .site-nav { align-items: flex-start; }
+  .site-nav-actions { display: none; }
+  .landing-hero { border-radius: 14px; }
+  .hero-copy { padding: 30px 20px 26px; }
+  .hero-copy h1 { font-size: 30px; }
+  .hero-proof { grid-template-columns: 1fr; }
+  .hero-preview { padding: 0 20px 20px; }
+  .feature-band { grid-template-columns: 1fr; }
+  .faq-section { padding: 16px; }
+  .faq-head { display: block; }
+  .faq-head p { margin-top: 8px; }
+}
 
 /* Header */
 .hdr { display: flex; align-items: center; justify-content: space-between; padding: 0 0 6px; }
@@ -280,26 +750,27 @@ select {
   font-size: 13.5px;
   cursor: pointer;
   border-bottom: 1px solid #F3F4F6;
-  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  display: block;
 }
 .kw-drop-item span {
-  min-width: 0;
-  flex: 1;
+  display: block;
   color: #111827;
-  font-weight: 500;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 .kw-drop-item:last-child { border-bottom: none; }
 .kw-drop-item:hover { background: var(--blue-lt); }
 .kw-drop-item small {
+  display: block;
+  margin-top: 4px;
   color: var(--blue);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 320px;
-  min-width: 220px;
-  text-align: right;
+  line-height: 1.35;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: left;
 }
 .kw-drop-empty { padding: 12px; font-size: 12px; color: var(--muted); }
 
@@ -308,7 +779,83 @@ select {
 .chip-x { background: none; border: none; color: var(--blue); cursor: pointer; font-size: 15px; line-height: 1; padding: 0; opacity: .55; }
 
 /* URL preview */
-.url-prev { font-size: 10.5px; color: var(--blue); word-break: break-all; margin-top: 5px; }
+.url-select-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+.url-select-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+.url-select-wrap::before {
+  content: "";
+  display: none;
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  bottom: 1px;
+  width: 34px;
+  pointer-events: none;
+  border-left: 1px solid #DBEAFE;
+  border-radius: 0 7px 7px 0;
+  background: #EFF6FF;
+}
+.url-select-wrap::after {
+  content: "";
+  display: none;
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  background: center / 14px 14px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232563EB' stroke-width='2.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+.url-select-wrap.has-options::before,
+.url-select-wrap.has-options::after {
+  display: block;
+}
+.url-select-wrap:has(select:disabled)::after {
+  opacity: .45;
+}
+.url-select-row select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: none;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding-right: 36px;
+}
+.url-copy-btn {
+  min-width: 74px;
+  padding-inline: 10px;
+  flex-shrink: 0;
+}
+.url-prev {
+  display: inline-block;
+  font-size: 10.5px;
+  color: var(--blue);
+  word-break: break-all;
+  margin-top: 5px;
+  text-decoration: none;
+}
+.url-prev:hover { text-decoration: underline; }
+@media (max-width: 640px) {
+  .url-select-row {
+    flex-direction: column;
+  }
+  .url-select-wrap {
+    width: 100%;
+  }
+  .url-copy-btn {
+    width: 100%;
+  }
+}
 
 /* Tabs */
 .tabs { display: flex; gap: 4px; background: var(--surface); border-radius: 9px; padding: 4px; }
@@ -332,6 +879,7 @@ textarea#prompt-out.ph { color: var(--muted); font-style: italic; }
 .btn-blue.ok { background: var(--green); }
 .btn-outline { background: transparent; color: #6B7280; border: 1px solid var(--border); }
 .btn-outline:hover { background: var(--surface); }
+.btn-outline.ok { background: var(--green-lt); color: var(--green); border-color: #BBF7D0; }
 
 
 
@@ -637,142 +1185,305 @@ textarea#prompt-out {
 </style>
 </head>
 <body>
-<div class="app">
+<div class="site-shell">
+  <header class="site-nav">
+    <div class="site-brand">
+      <div class="site-logo">SEO</div>
+      <div>
+        <strong>SEO Prompt Studio</strong>
+        <span>Keyword sheets to ready-to-edit AI content</span>
+      </div>
+    </div>
+    <nav class="site-nav-actions" aria-label="Page navigation">
+      <a class="nav-link" href="#tool">Tool</a>
+      <a class="nav-link" href="#faq">FAQs</a>
+      <a class="nav-cta" href="#tool">Start Generating</a>
+    </nav>
+  </header>
 
-  <!-- AI Config -->
-  <div class="card ai-head-card" id="ai-head-card">
-    <div class="row">
-      <div class="hdr" style="padding:0;">
-        <div>
-          <h1>SEO Prompts + AI Generation</h1>
-          <p id="brand-sub">Upload a keyword sheet to begin</p>
+  <section class="landing-hero" aria-label="SEO Prompt Tool introduction">
+    <div class="hero-copy">
+      <div class="hero-kicker">Backlink Content Workflow</div>
+      <h1>Turn keyword sheets into clean prompts and usable SEO content.</h1>
+      <p>Upload an Excel file or public Google Sheet, select a keyword, choose the content type, and generate structured backlink-ready content with target links, rich copy, preview checks, and saved history.</p>
+      <div class="hero-actions">
+        <a class="hero-btn primary" href="#tool">Open the Tool</a>
+        <a class="hero-btn secondary" href="#faq">How it works</a>
+      </div>
+      <div class="hero-proof">
+        <div><strong>5</strong><span>Prompt types for backlinks and content</span></div>
+        <div><strong>Sheet</strong><span>Excel and public Google Sheet support</span></div>
+        <div><strong>QA</strong><span>Preview, history, rich copy, and URL handling</span></div>
+      </div>
+    </div>
+    <div class="hero-preview" aria-hidden="true">
+      <div class="preview-console">
+        <div class="console-bar">
+          <span>Demo keyword sheet</span>
+          <div class="console-dots"><span></span><span></span><span></span></div>
         </div>
-        <div class="hdr-icon">
-          <svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Upload -->
-  <div class="card">
-    <div class="row">
-      <div class="upload-top">
-        <div class="lbl">① Keyword Sheet</div>
-        <div class="upload-actions">
-          <button class="hist-btn" id="preview-btn" type="button" onclick="openPreviewModal()" disabled>
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h9"/></svg>
-            Preview
-          </button>
-          <button class="hist-btn" id="hist-btn" type="button" onclick="openHistoryModal()" disabled>
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 8v5l3 3"/><path d="M3.05 11a9 9 0 1 1 .5 4"/><path stroke-linecap="round" d="M3 4v7h7"/></svg>
-            History
-          </button>
-        </div>
-      </div>
-      <div class="upload-note">
-        <strong>Start here:</strong> Upload your keyword sheet first. The tool will read keywords and target URLs from the file, then you can select a keyword and generate content.
-      </div>
-      <div class="sheet-url-row">
-        <input id="sheet-url-in" type="url" placeholder="Paste public Google Sheet URL…"/>
-        <button class="btn btn-blue" id="sheet-url-btn" type="button" onclick="loadGoogleSheetUrl()">Load URL</button>
-      </div>
-      <div class="upload-zone" id="upload-zone"
-        onclick="document.getElementById('f-in').click()"
-        ondragover="event.preventDefault();this.classList.add('drag')"
-        ondragleave="this.classList.remove('drag')"
-        ondrop="onDrop(event)">
-        <input type="file" id="f-in" accept=".xlsx,.xls" onchange="handleFile(this.files[0])"/>
-        <svg width="20" height="20" fill="none" stroke="#9CA3AF" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
-        <div class="up-title">Drop .xlsx or tap to browse</div>
-        <div class="up-sub">Supports standard keyword research sheets</div>
-      </div>
-      <div class="banner" id="banner"></div>
-    </div>
-  </div>
-
-  <!-- Keyword + URL -->
-  <div class="card">
-    <div class="row">
-      <div class="lbl">② Keyword</div>
-      <div class="kw-combo">
-        <input
-          id="kw-in"
-          class="kw-input"
-          type="text"
-          disabled
-          placeholder="Upload a sheet first…"
-          oninput="buildDrop(this.value)"
-          onfocus="buildDrop(this.value)"
-          onkeydown="handleKeywordKeydown(event)"
-          autocomplete="off"
-        />
-        <button class="kw-open-btn" id="kw-open-btn" disabled onclick="openModal()" title="Browse keywords" aria-label="Browse keywords">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="m19 9-7 7-7-7"/></svg>
-        </button>
-      </div>
-      <div id="kw-drop" class="kw-drop" style="display:none;"></div>
-      <div id="kw-chip" style="display:none;">
-        <span class="chip"><span id="chip-kw"></span><button class="chip-x" onclick="clearKw()">×</button></span>
-      </div>
-    </div>
-    <div class="row">
-      <div class="lbl">③ Target URL</div>
-      <select id="url-sel" disabled onchange="onUrlChange()">
-        <option value="">— Auto-selected on keyword pick —</option>
-      </select>
-      <div id="url-prev" class="url-prev" style="display:none;"></div>
-    </div>
-  </div>
-
-  <!-- Prompt + AI Output -->
-  <div class="card split-card">
-    <div class="split-head">
-      <div class="lbl" style="margin-bottom:8px;">④ Prompt Type</div>
-      <div class="tabs" id="tab-bar">
-        <button class="tab on" data-t="smo">SMO</button>
-        <button class="tab" data-t="blog">Blog</button>
-        <button class="tab" data-t="micro">Micro</button>
-        <button class="tab" data-t="ad">Ad</button>
-        <button class="tab" data-t="image">Image</button>
-      </div>
-    </div>
-    <div class="split-body">
-      <div class="pane">
-        <div class="row">
-          <div class="btn-row">
-            <span class="lbl" style="flex:1;margin:0;align-self:center;">Generated Prompt <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#9CA3AF;">· editable</span></span>
-            <button class="btn btn-outline" onclick="resetPrompt()">Reset</button>
-            <button class="btn btn-blue" id="copy-btn" onclick="doCopy()">Copy</button>
+        <div class="console-body">
+          <div class="demo-sheet">
+            <div class="demo-sheet-scroll">
+              <div class="demo-sheet-row demo-title">
+                <div class="demo-cell"></div>
+                <div class="demo-cell" style="grid-column: span 5;">Keyword Research Report: <span class="demo-link">https://www.northbridge-demo.example/</span></div>
+              </div>
+              <div class="demo-sheet-row demo-target">
+                <div class="demo-cell">URL</div>
+                <div class="demo-cell demo-link">https://www.northbridge-demo.example/collections/workplace-kits</div>
+                <div class="demo-cell"></div>
+                <div class="demo-cell">Page Status</div>
+                <div class="demo-cell demo-status">Existing</div>
+                <div class="demo-cell">Category Page</div>
+              </div>
+              <div class="demo-sheet-row demo-header">
+                <div class="demo-cell">#</div>
+                <div class="demo-cell">Main Keyword</div>
+                <div class="demo-cell">Volume</div>
+                <div class="demo-cell">Difficulty</div>
+                <div class="demo-cell">Position</div>
+                <div class="demo-cell">Ranking URL</div>
+              </div>
+              <div class="demo-sheet-row">
+                <div class="demo-cell">1</div>
+                <div class="demo-cell">workplace safety kits</div>
+                <div class="demo-cell">480</div>
+                <div class="demo-cell">34</div>
+                <div class="demo-cell demo-muted">-</div>
+                <div class="demo-cell demo-muted">-</div>
+              </div>
+              <div class="demo-sheet-row">
+                <div class="demo-cell">2</div>
+                <div class="demo-cell">industrial storage bins</div>
+                <div class="demo-cell">260</div>
+                <div class="demo-cell">28</div>
+                <div class="demo-cell demo-muted">-</div>
+                <div class="demo-cell demo-muted">-</div>
+              </div>
+              <div class="demo-sheet-row">
+                <div class="demo-cell">3</div>
+                <div class="demo-cell">commercial cleaning carts</div>
+                <div class="demo-cell">170</div>
+                <div class="demo-cell">19</div>
+                <div class="demo-cell demo-muted">-</div>
+                <div class="demo-cell demo-muted">-</div>
+              </div>
+            </div>
+            <div class="demo-note">Demo only. The layout mirrors the keyword-only sheet structure while using fake brand details and sample keywords.</div>
           </div>
-          <textarea id="prompt-out" class="ph" readonly>Upload a keyword sheet and select a keyword to generate your prompt.</textarea>
         </div>
       </div>
-      <div class="pane">
-        <div class="row">
-          <div class="gen-actions">
-            <span class="lbl" style="flex:1;margin:0;align-self:center;">AI Output</span>
-            <span id="ai-status" class="ai-status">Ready</span>
-            <button class="btn btn-green" id="generate-btn" type="button" onclick="generateContentAI()">Generate</button>
-            <button class="btn btn-purple" id="rich-copy-btn" type="button" onclick="copyRichOutput()">Rich Copy</button>
-            <button class="btn btn-outline" type="button" onclick="setPlainTextOutput()">Plain Text</button>
-          </div>
-          <div id="ai-editor-wrap" class="ai-editor-wrap ai-output is-empty">
-            <textarea id="ai-out" data-placeholder="Generated content will appear here →"></textarea>
-            <div class="ai-loading" id="ai-loading" aria-hidden="true">
-              <div class="ai-skel-line ai-skel-title"></div>
-              <div class="ai-skel-line ai-skel-long"></div>
-              <div class="ai-skel-line ai-skel-mid"></div>
-              <div class="ai-skel-line ai-skel-long"></div>
-              <div class="ai-skel-line ai-skel-short"></div>
-              <div class="ai-skel-line ai-skel-title"></div>
-              <div class="ai-skel-line ai-skel-long"></div>
-              <div class="ai-skel-line ai-skel-mid"></div>
+    </div>
+  </section>
+
+  <section class="feature-band" aria-label="Tool highlights">
+    <div class="feature-item">
+      <strong>Google Sheet Loading</strong>
+      <span>Fetch public sheets fresh, including product links and variants.</span>
+    </div>
+    <div class="feature-item">
+      <strong>Keyword Alignment</strong>
+      <span>Group complex flyer rows into keyword-level content tasks.</span>
+    </div>
+    <div class="feature-item">
+      <strong>Prompt Control</strong>
+      <span>Use backlink-safe prompt rules for informational content.</span>
+    </div>
+    <div class="feature-item">
+      <strong>Rich Copy Output</strong>
+      <span>Copy formatted AI content directly into publishing workflows.</span>
+    </div>
+  </section>
+
+  <div class="app" id="tool">
+    <div class="tool-section-head">
+      <div>
+        <div class="lbl">Workspace</div>
+        <h2>Build backlink content from one keyword sheet</h2>
+        <p>Start on the left by loading the sheet and choosing a keyword. Work on the right to edit the generated prompt, run AI generation, and copy clean output.</p>
+      </div>
+      <span class="tool-status-pill">Live content workspace</span>
+    </div>
+    <div class="tool-workspace">
+      <aside class="setup-column">
+        <div class="card ai-head-card" id="ai-head-card">
+          <div class="row">
+            <div class="hdr" style="padding:0;">
+              <div>
+                <h1>SEO Prompts + AI Generation</h1>
+                <p id="brand-sub">Upload a keyword sheet to begin</p>
+              </div>
+              <div class="hdr-icon">
+                <svg width="15" height="15" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="upload-top">
+              <div class="lbl">① Keyword Sheet</div>
+              <div class="upload-actions">
+                <button class="hist-btn" id="preview-btn" type="button" onclick="openPreviewModal()" disabled>
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h9"/></svg>
+                  Preview
+                </button>
+                <button class="hist-btn" id="hist-btn" type="button" onclick="openHistoryModal()" disabled>
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 8v5l3 3"/><path d="M3.05 11a9 9 0 1 1 .5 4"/><path stroke-linecap="round" d="M3 4v7h7"/></svg>
+                  History
+                </button>
+              </div>
+            </div>
+            <div class="upload-note">
+              <strong>Start here:</strong> Upload your keyword sheet first. The tool will read keywords From target URLs from the Googlefile, then you can select a keyword and generate content.
+            </div>
+            <div class="sheet-url-row">
+              <input id="sheet-url-in" type="url" placeholder="Paste public Google Sheet URL…"/>
+              <button class="btn btn-blue" id="sheet-url-btn" type="button" onclick="loadGoogleSheetUrl()">Load URL</button>
+            </div>
+            <div class="upload-zone" id="upload-zone"
+              onclick="document.getElementById('f-in').click()"
+              ondragover="event.preventDefault();this.classList.add('drag')"
+              ondragleave="this.classList.remove('drag')"
+              ondrop="onDrop(event)">
+              <input type="file" id="f-in" accept=".xlsx,.xls" onchange="handleFile(this.files[0])"/>
+              <svg width="20" height="20" fill="none" stroke="#9CA3AF" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+              <div class="up-title">Drop .xlsx or tap to browse</div>
+              <div class="up-sub">Supports standard keyword research sheets</div>
+            </div>
+            <div class="banner" id="banner"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row">
+            <div class="lbl">② Keyword</div>
+            <div class="kw-combo">
+              <input
+                id="kw-in"
+                class="kw-input"
+                type="text"
+                disabled
+                placeholder="Upload a sheet first…"
+                oninput="buildDrop(this.value)"
+                onfocus="buildDrop(this.value)"
+                onkeydown="handleKeywordKeydown(event)"
+                autocomplete="off"
+              />
+              <button class="kw-open-btn" id="kw-open-btn" disabled onclick="openModal()" title="Browse keywords" aria-label="Browse keywords">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="m19 9-7 7-7-7"/></svg>
+              </button>
+            </div>
+            <div id="kw-drop" class="kw-drop" style="display:none;"></div>
+            <div id="kw-chip" style="display:none;">
+              <span class="chip"><span id="chip-kw"></span><button class="chip-x" onclick="clearKw()">×</button></span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="lbl">③ Target URL</div>
+            <div class="url-select-row">
+              <div class="url-select-wrap">
+                <select id="url-sel" disabled onchange="onUrlChange()">
+                  <option value="">— Auto-selected on keyword pick —</option>
+                </select>
+              </div>
+              <button class="btn btn-outline url-copy-btn" id="url-copy-btn" type="button" onclick="copyTargetUrl()" disabled>Copy</button>
+            </div>
+            <a id="url-prev" class="url-prev" style="display:none;" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+        </div>
+      </aside>
+
+      <main class="work-column">
+        <div class="card split-card">
+          <div class="split-head">
+            <div class="lbl" style="margin-bottom:8px;">④ Prompt Type</div>
+            <div class="tabs" id="tab-bar">
+              <button class="tab on" data-t="smo">SMO</button>
+              <button class="tab" data-t="blog">Blog</button>
+              <button class="tab" data-t="micro">Micro</button>
+              <button class="tab" data-t="ad">Ad</button>
+              <button class="tab" data-t="image">Image</button>
+            </div>
+          </div>
+          <div class="split-body">
+            <div class="pane">
+              <div class="row">
+                <div class="btn-row">
+                  <span class="lbl" style="flex:1;margin:0;align-self:center;">Generated Prompt <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#9CA3AF;">· editable</span></span>
+                  <button class="btn btn-outline" onclick="resetPrompt()">Reset</button>
+                  <button class="btn btn-blue" id="copy-btn" onclick="doCopy()">Copy</button>
+                </div>
+                <textarea id="prompt-out" class="ph" readonly>Upload a keyword sheet and select a keyword to generate your prompt.</textarea>
+              </div>
+            </div>
+            <div class="pane">
+              <div class="row">
+                <div class="gen-actions">
+                  <span class="lbl" style="flex:1;margin:0;align-self:center;">AI Output</span>
+                  <span id="ai-status" class="ai-status">Ready</span>
+                  <button class="btn btn-green" id="generate-btn" type="button" onclick="generateContentAI()">Generate</button>
+                  <button class="btn btn-purple" id="rich-copy-btn" type="button" onclick="copyRichOutput()">Rich Copy</button>
+                  <button class="btn btn-outline" type="button" onclick="setPlainTextOutput()">Plain Text</button>
+                </div>
+                <div id="ai-editor-wrap" class="ai-editor-wrap ai-output is-empty">
+                  <textarea id="ai-out" data-placeholder="Generated content will appear here →"></textarea>
+                  <div class="ai-loading" id="ai-loading" aria-hidden="true">
+                    <div class="ai-skel-line ai-skel-title"></div>
+                    <div class="ai-skel-line ai-skel-long"></div>
+                    <div class="ai-skel-line ai-skel-mid"></div>
+                    <div class="ai-skel-line ai-skel-long"></div>
+                    <div class="ai-skel-line ai-skel-short"></div>
+                    <div class="ai-skel-line ai-skel-title"></div>
+                    <div class="ai-skel-line ai-skel-long"></div>
+                    <div class="ai-skel-line ai-skel-mid"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   </div>
+
+  <section class="faq-section" id="faq">
+    <div class="faq-head">
+      <div>
+        <div class="lbl">FAQs</div>
+        <h2>How this SEO prompt tool works</h2>
+      </div>
+      <p>Use these answers to understand the upload flow, keyword matching, Google Sheet loading, AI output, and where this tool fits in a backlink content workflow.</p>
+    </div>
+    <div class="faq-grid">
+      <details class="faq-item">
+        <summary>What does this tool do?</summary>
+        <p>It reads a keyword sheet, matches each keyword with its target URL, generates editable prompts, and sends those prompts to the AI generator for SMO posts, blogs, micro blogs, ads, and image prompt packages.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can it load Google Sheets?</summary>
+        <p>Yes. Paste a public Google Sheet URL and the tool fetches the sheet fresh, parses keywords and target links, and supports complex product-link sheets with multiple variants under one keyword.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Why does the Target URL dropdown change?</summary>
+        <p>If a keyword has multiple product links or variants, the dropdown shows those URL options. If only one link is available, it behaves like a simple target URL field with copy and preview controls.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What content types are supported?</summary>
+        <p>The tool currently supports SMO, blog, micro blog, ad, and image prompt formats. Each type uses a different prompt template and tone rules for backlink-friendly content generation.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Does it write promotional content?</summary>
+        <p>Non-ad prompt types are designed to stay informational and topic-first. The prompts and backend guardrails restrict sales language, unsupported claims, medical claims, and first-person brand promotion.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I copy formatted AI output?</summary>
+        <p>Yes. Use Rich Copy to copy formatted output from the editor, or Plain Text to simplify it. The generated prompt itself can also be copied and edited before generation.</p>
+      </details>
+    </div>
+  </section>
 </div>
 
 <!-- ── KEYWORD MODAL ─────────────────────────────────────────────── -->
@@ -850,10 +1561,10 @@ const SHEET_URL_HISTORY_LIMIT = 12;
 function getPrompt(kw, url) {
   const b = brandName, r = rootUrl;
   const fresh = 'Freshness rule: Do not use repeated marketing cliches such as "Elevate", "Unlock", "Transform", "Boost", "Discover", "Powerful", "Game-changing", "Next-level", or "Seamless". Vary the opening angle, verbs, sentence rhythm, and examples every time.';
-  const backlinkTone = 'Backlink tone rule: Keep the content informational and topic-first, not promotional or brand-first. Do not write sales copy. Avoid unsupported claims such as customers trust us, pure effective ingredients, curated selection, strict quality standards, or expert-backed products unless those facts are provided in the prompt. Do not make medical, disease-treatment, cure, guaranteed-result, guaranteed-safety, or diagnosis claims. Mention the brand only naturally and briefly where requested.';
+  const backlinkTone = 'Backlink tone rule: Keep the content informational and topic-first, not promotional or brand-first. Do not write sales copy. Do not use calls to action such as visit, buy, shop, try, order, book, experience, or incorporate into your routine unless the prompt type is Ad. Do not use first-person brand language such as our, we, us, or ours unless specifically required. Avoid unsupported claims such as customers trust us, pure effective ingredients, curated selection, strict quality standards, organic, responsibly sourced, crafted, potency, or expert-backed products unless those facts are provided in the prompt. Do not make medical, disease-treatment, cure, guaranteed-result, guaranteed-safety, or diagnosis claims. Mention the brand only naturally and briefly where requested.';
   const T = {
-    smo:   () => `Create a professional SMO post. The keyword is: ${kw}\n\nOutput format:\n- One engaging heading of 40 to 60 characters\n- One concise post body of 40 to 60 words\n- SEO optimized, natural, and written for social media\n- Use the keyword naturally once in the post body\n- Keep tone clear, polished, and business-friendly\n\nAdd this line exactly at the end:\nVisit our website: ${url}\n\n${backlinkTone}\n\n${fresh}\n\nGUIDELINE: Output only the final SMO post. Do not add explanations, labels, hashtags, emojis, or HTML tags.`,
-    blog:  () => `Write a complete SEO-friendly blog article, not a short answer or outline.\n\nRequired format:\n**Meta Title**\nWrite one SEO title, 50 to 60 characters.\n\n**Meta Description**\nWrite one persuasive meta description, 140 to 160 characters.\n\n# Write a unique blog title about "${kw}"\n\nThen write the article body. The body alone must be at least 1100 words, excluding Meta Title, Meta Description, H1 title, and headings.\n\nBody requirements:\n- A strong opening paragraph directly about "${kw}"\n- 5 to 7 useful H2 sections with topic-specific headings\n- 2 to 4 short paragraphs under most H2 sections\n- Practical tips, benefits, strategy, examples, and buyer guidance\n- Natural SEO tone for business readers\n- Final H2 section must be "## Conclusion" with a useful closing paragraph\n- Do not use generic section titles like "Introduction" or "Overview"\n- Do not use horizontal separators like ---\n\nKeyword: "${kw}"\n\nStrictly within the first body paragraph after the H1 title, bind this link on the given keyword:\nLink: ${url}\nNote: The keyword is not a person.\n\nAdd "${b}" naturally near the bottom of the blog and bind this link on that keyword:\nLink: ${r}\n\nBefore finalizing, self-check that body content is 1100+ words and includes the final Conclusion section.\n\n${backlinkTone}\n\n${fresh}\n\nGUIDELINE: Output in clean Markdown only. Bind links using Markdown format like [keyword](https://example.com/). Do not use HTML tags such as <a> or <br>. Avoid tables unless a comparison table is truly necessary.`,
+    smo:   () => `Create an informational SMO note, not a promotional post. The keyword is: ${kw}\n\nOutput format:\n- One neutral informational heading of 40 to 60 characters\n- One concise body of 40 to 60 words\n- Explain the topic in a useful, factual way for social media readers\n- Use the keyword naturally once in the body\n- Do not pitch the product, praise the brand, or imply verified product qualities\n- Do not use first-person brand language such as our, we, us, or ours\n- Do not use calls to action such as visit, buy, shop, try, order, book, experience, or incorporate into your routine\n\nAdd this line exactly at the end:\nReference link: ${url}\n\n${backlinkTone}\n\n${fresh}\n\nGUIDELINE: Output only the final SMO note. Do not add explanations, labels, hashtags, emojis, or HTML tags.`,
+    blog:  () => `Write a complete SEO-friendly blog article, not a short answer or outline.\n\nRequired output format:\n**Meta Title**\nWrite one SEO title, 50 to 60 characters.\n\n**Meta Description**\nWrite one persuasive meta description, 140 to 160 characters.\n\n# Write a unique, search-intent-focused blog title about "${kw}"\n\nThen write the article body. The body alone must be at least 1100 words, excluding Meta Title, Meta Description, H1 title, headings, and FAQs.\n\nFirst-link rule:\n- In the first body paragraph immediately after the H1, insert the exact Markdown link [${kw}](${url}).\n- The Markdown link must begin between character 50 and character 160 of that first paragraph.\n- Do not place the target URL as plain text anywhere in the article body.\n- The keyword is not a person.\n\nUse this content writer pattern:\n- Open with a sharp, problem-led question or scenario tied directly to "${kw}". Do not start with a definition.\n- In the first 2 paragraphs, explain the real problem, why it happens, and what system/strategy/decision the reader needs.\n- Use question-style H2s that sound like a real reader would ask. Example patterns: "Why Does...", "What Does...", "How Should...", "Which...", "What Separates...".\n- Build sections like a strategy article: root causes, practical framework, comparison/table if useful, optimization/selection criteria, mistakes to avoid, scaling/next steps, and brand/service fit near the bottom.\n- Use bullets only where they make the advice easier to scan. Each bullet must contain a specific explanation, not a generic phrase.\n- If a table would clarify keyword types, options, product variants, comparison criteria, or decision factors, include one concise Markdown table.\n- Add a "## FAQs" section after the conclusion with 4 to 6 short, useful Q&A items.\n\nArticle quality requirements:\n- Do not follow a generic AI blog pattern such as: intro, benefits, how to choose, conclusion.\n- Choose H2 sections based on the keyword's real search intent, likely buyer questions, use cases, mistakes, comparison points, and practical decision factors.\n- Use 5 to 7 topic-specific H2 sections before Conclusion. No generic headings like "Introduction", "Overview", "Why It Matters", or "Final Thoughts".\n- Include at least two of these naturally where relevant: practical example, common mistake, pro tip, expert insight, comparison, checklist, buyer guidance, or quick answer section.\n- Mix short and detailed sentences. Avoid robotic connectors and repeated paragraph rhythm.\n- Avoid filler phrases such as "In today's fast-paced world", "when it comes to", "it is important to note", "delve into", "unlock", and "elevate".\n- Final article-body H2 section must be "## Conclusion" with a useful closing paragraph, followed by "## FAQs".\n- Do not use horizontal separators like ---.\n\nKeyword: "${kw}"\n\nAdd "${b}" naturally near the bottom of the blog and bind this link on that keyword using Markdown format:\nLink: ${r}\n\nBefore finalizing, self-check that body content is 1100+ words, the first target Markdown link starts between characters 50 and 160 of the first body paragraph, the Conclusion section is included, and FAQs are included after Conclusion.\n\n${backlinkTone}\n\n${fresh}\n\nGUIDELINE: Output in clean Markdown only. Bind links using Markdown format like [keyword](https://example.com/). Do not use HTML tags such as <a> or <br>.`,
     micro: () => `Create a professional micro blog. The keyword is: ${kw}\n\nOutput format:\n- One clear heading of 50 to 70 characters\n- Body content of 205 to 250 words\n- 3 short paragraphs only\n- The keyword must appear in the center paragraph of the content\n- Bind this link on the keyword using Markdown format: ${url}\n- Keep the tone informative, polished, and SEO-friendly\n\n${backlinkTone}\n\n${fresh}\n\nGUIDELINE: Output only the final micro blog in clean plain text/Markdown. Do not add explanations, labels, hashtags, emojis, bullet lists, or HTML tags. If you use any HTML tag, regenerate the response.`,
     ad:    () => `Create an ad title and description of around 50 to 70 words.\nKeyword: "${kw}"\n\n${fresh}\n\nAdd this at the bottom:\nPlease visit our website: ${url}`,
     image: () => `Create a ready-to-use image generation prompt for an Instagram square post for ${b}.\n\nTopic keyword: "${kw}"\nWebsite: ${url}\nBrand name: ${b}\n\nOutput must include:\n\n**Image Prompt**\nWrite one detailed image prompt for a 1:1 Instagram post. Describe the main visual, scene, objects, background, lighting, style, colors, and composition. Keep it realistic, professional, and suitable for the keyword.\n\n**Text Overlay**\nWrite a short heading of 5 to 8 words for the image.\nWrite one short supporting line of 8 to 14 words.\nInclude the website: ${url}\n\n**Design Direction**\nGive 4 to 6 concise bullets for layout, color palette, typography, spacing, and visual hierarchy.\n\n**Negative Prompt**\nList what the image model should avoid: blurry output, distorted text, extra fingers, wrong logo, watermark, clutter, spelling mistakes, low-resolution design.\n\n${fresh}\n\nGUIDELINE: Do not generate an image. Generate only the final prompt package in clean Markdown. Do not use HTML tags.`,
@@ -912,10 +1623,11 @@ function getGoogleSheetInfo(url) {
 
 function googleSheetSources(url) {
   const { id, gid } = getGoogleSheetInfo(url);
+  const cacheBust = Date.now();
   return [
-    { type: 'xlsx', url: `https://docs.google.com/spreadsheets/d/${id}/export?format=xlsx` },
-    { type: 'csv', url: `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&gid=${gid}` },
-    { type: 'csv', url: `https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}` }
+    { type: 'xlsx', url: `https://docs.google.com/spreadsheets/d/${id}/export?format=xlsx&_=${cacheBust}` },
+    { type: 'csv', url: `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&gid=${gid}&_=${cacheBust}` },
+    { type: 'csv', url: `https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}&_=${cacheBust}` }
   ];
 }
 
@@ -937,7 +1649,7 @@ async function loadGoogleSheetUrl() {
     let lastError = null;
     for (const source of googleSheetSources(url)) {
       try {
-        const response = await fetch(source.url);
+        const response = await fetch(source.url, { cache: 'no-store' });
         if (!response.ok) throw new Error('Google Sheet returned ' + response.status);
         if (source.type === 'xlsx') {
           const buffer = await response.arrayBuffer();
@@ -1148,30 +1860,42 @@ function openPreviewModal() {
   const body = document.getElementById('preview-body');
   const count = document.getElementById('preview-count');
   const duplicates = previewDuplicateGroups(parsePreview.rawRows);
-  const duplicateExtraRows = Math.max(0, parsePreview.rawRows.length - kwData.length);
+  const duplicateSerials = previewDuplicateSerialGroups(kwData);
   const rows = addTargetUrlKeywordNumbers(kwData).slice(0, 100);
+  const serialCount = new Set(kwData.map(item => item.serial).filter(value => value !== undefined && value !== null && value !== '')).size || '-';
+  const variantUrlCount = countVariantUrls(kwData);
 
   count.textContent = kwData.length + ' parsed keywords';
   body.innerHTML = `
     <div class="preview-grid">
-      <div class="preview-stat"><strong>${parsePreview.rawRows.length}</strong><span>Raw rows</span></div>
-      <div class="preview-stat"><strong>${kwData.length}</strong><span>Parsed keywords</span></div>
-      <div class="preview-stat"><strong>${duplicateExtraRows}</strong><span>Duplicates removed</span></div>
-      <div class="preview-stat"><strong>${urlList.length}</strong><span>Target URLs</span></div>
+      <div class="preview-stat"><strong>${kwData.length}</strong><span>Keyword groups</span></div>
+      <div class="preview-stat"><strong>${serialCount}</strong><span>Serial IDs</span></div>
+      <div class="preview-stat"><strong>${variantUrlCount}</strong><span>Variant URLs</span></div>
+      <div class="preview-stat"><strong>${urlList.length}</strong><span>Unique URLs</span></div>
     </div>
     <div class="preview-section-title">Parsed keywords ${kwData.length > rows.length ? `(first ${rows.length})` : ''}</div>
     <table class="preview-table">
-      <thead><tr><th>#</th><th>Keyword</th><th>Target URL</th></tr></thead>
+      <thead><tr><th>#</th><th>Keyword</th><th>Variants</th><th>Target URL</th></tr></thead>
       <tbody>
         ${rows.map(item => `
           <tr>
-            <td>${escapeHtml(item.targetIndex || '-')}</td>
+            <td>${escapeHtml(item.serial || item.targetIndex || '-')}</td>
             <td>${escapeHtml(item.kw)}</td>
+            <td>${escapeHtml(getKeywordUrls(item).length)}</td>
             <td><div class="preview-url" title="${escapeHtml(item.url)}">${escapeHtml(shortPreviewUrl(item.url))}</div></td>
           </tr>
         `).join('')}
       </tbody>
     </table>
+    <div class="preview-section-title">Duplicate serial IDs ${duplicateSerials.length ? '' : '(none)'}</div>
+    <div class="preview-dup-list">
+      ${duplicateSerials.length ? duplicateSerials.slice(0, 60).map(items => `
+        <div class="preview-dup">
+          <strong>#${escapeHtml(items[0].serial)}</strong>
+          <span>${escapeHtml(items.map(item => item.kw).join(', '))}</span>
+        </div>
+      `).join('') : '<div class="hist-empty">No duplicate serial IDs found.</div>'}
+    </div>
     <div class="preview-section-title">Duplicate keywords ${duplicates.length ? '' : '(none)'}</div>
     <div class="preview-dup-list">
       ${duplicates.length ? duplicates.slice(0, 60).map(items => `
@@ -1183,6 +1907,26 @@ function openPreviewModal() {
     </div>
   `;
   document.getElementById('preview-modal-bg').classList.add('open');
+}
+
+function getKeywordUrls(item) {
+  if (Array.isArray(item?.urls) && item.urls.length) return item.urls;
+  return item?.url ? [{ url: item.url, variant: item.variant || '' }] : [];
+}
+
+function countVariantUrls(rows) {
+  return rows.reduce((total, item) => total + getKeywordUrls(item).length, 0);
+}
+
+function previewDuplicateSerialGroups(rows) {
+  const groups = new Map();
+  rows.forEach(item => {
+    if (item.serial === undefined || item.serial === null || item.serial === '') return;
+    const key = String(item.serial);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(item);
+  });
+  return Array.from(groups.values()).filter(items => new Set(items.map(item => item.kw)).size > 1);
 }
 
 function addTargetUrlKeywordNumbers(rows) {
@@ -1286,6 +2030,24 @@ function keywordColumnFromRow(row) {
   return row.findIndex(cell => /^(main\s+keyword|keywords?)$/i.test(cleanKeywordText(cell)));
 }
 
+function productTableColumnsFromRow(row) {
+  const cells = row.map(cell => cleanKeywordText(cell).toLowerCase());
+  const serialIndex = cells.findIndex(cell => cell === '#');
+  const keywordIndex = cells.findIndex(cell => /^(main\s+keyword|keywords?)$/.test(cell));
+  const variantIndex = cells.findIndex(cell => /^variants?$/.test(cell));
+  const linkIndex = cells.findIndex(cell => /^(product\s+link|target\s+url|url|link)$/.test(cell));
+  if (keywordIndex < 0 || linkIndex < 0) return null;
+  return { serialIndex, keywordIndex, variantIndex, linkIndex };
+}
+
+function isSectionTitleRow(row) {
+  const cells = row.map(cleanKeywordText).filter(Boolean);
+  if (cells.length !== 1) return false;
+  const value = cells[0];
+  if (extractFirstUrl(value) || isHeaderText(value) || isSerialCell(value)) return false;
+  return /[a-z]/i.test(value);
+}
+
 function isMetricCell(value) {
   const text = cleanKeywordText(value);
   return /^(\d+(\.\d+)?|\d+(\.\d+)?\s*[kK]|NA|N\/A|\d+\s*[kK]?\s*[-–]\s*\d+\s*[kK]?)$/.test(text);
@@ -1317,17 +2079,73 @@ function normalizeUrlKey(url) {
   return String(url || '').replace(/\/+$/, '').toLowerCase();
 }
 
+function getRowCell(row, index) {
+  if (index < 0) return '';
+  return row[index] || '';
+}
+
+function getSheetCell(sheet, rowIndex, columnIndex) {
+  if (!sheet || columnIndex < 0 || typeof XLSX === 'undefined' || !XLSX.utils?.encode_cell) return null;
+  return sheet[XLSX.utils.encode_cell({ r: rowIndex, c: columnIndex })] || null;
+}
+
+function extractCellUrl(value, sheet, rowIndex, columnIndex) {
+  const cell = getSheetCell(sheet, rowIndex, columnIndex);
+  const target = cell?.l?.Target || cell?.l?.target || cell?.l?.href || '';
+  return extractFirstUrl(value) || extractFirstUrl(target);
+}
+
+function normalizeUrlEntries(item) {
+  if (Array.isArray(item.urls) && item.urls.length) {
+    const seen = new Set();
+    return item.urls
+      .map(entry => ({
+        url: entry?.url || '',
+        variant: cleanKeywordText(entry?.variant || ''),
+        rowNumber: entry?.rowNumber || item.rowNumber || null
+      }))
+      .filter(entry => {
+        const key = normalizeUrlKey(entry.url);
+        if (!key || seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+  }
+  return item.url ? [{ url: item.url, variant: item.variant || '', rowNumber: item.rowNumber || null }] : [];
+}
+
+function normalizeKeywordRow(item) {
+  const urls = normalizeUrlEntries(item);
+  return {
+    ...item,
+    urls,
+    url: urls[0]?.url || item.url || ''
+  };
+}
+
 function dedupeKeywordRows(rows) {
-  const byKeywordAndUrl = new Map();
+  const groupedRows = new Map();
+  const flatRows = new Map();
   rows.forEach(item => {
     const keywordKey = normalizeKeywordKey(item.kw);
     if (!keywordKey) return;
+    if (Array.isArray(item.urls)) {
+      const normalized = normalizeKeywordRow(item);
+      if (!groupedRows.has(keywordKey)) {
+        groupedRows.set(keywordKey, normalized);
+      } else {
+        const existing = groupedRows.get(keywordKey);
+        existing.urls = normalizeUrlEntries({ urls: existing.urls.concat(normalized.urls), rowNumber: existing.rowNumber });
+        existing.url = existing.urls[0]?.url || existing.url || '';
+      }
+      return;
+    }
     const key = keywordKey + '|' + normalizeUrlKey(item.url);
-    if (!byKeywordAndUrl.has(key)) {
-      byKeywordAndUrl.set(key, item);
+    if (!flatRows.has(key)) {
+      flatRows.set(key, normalizeKeywordRow(item));
     }
   });
-  return Array.from(byKeywordAndUrl.values());
+  return Array.from(groupedRows.values()).concat(Array.from(flatRows.values()));
 }
 
 function parseWB(wb, fname) {
@@ -1335,7 +2153,7 @@ function parseWB(wb, fname) {
   let bestSheetName = '';
   wb.SheetNames.forEach(name => {
     const rows = XLSX.utils.sheet_to_json(wb.Sheets[name], { header:1, defval:'' });
-    const p = parseSheet(rows, name);
+    const p = parseSheet(rows, name, wb.Sheets[name]);
     if (p.length > best.length) {
       best = p;
       bestSheetName = name;
@@ -1349,7 +2167,7 @@ function parseWB(wb, fname) {
   }
 
   kwData = dedupeKeywordRows(best);
-  urlList = [...new Set(kwData.map(k => k.url))];
+  urlList = [...new Set(kwData.flatMap(k => getKeywordUrls(k).map(entry => entry.url)).filter(Boolean))];
   brandName = parseBrand(urlList[0] || '');
   rootUrl   = parseRoot(urlList[0] || '');
 
@@ -1375,11 +2193,68 @@ function parseWB(wb, fname) {
   };
 }
 
-function parseSheet(rows, sheetName = '') {
+function parseSheet(rows, sheetName = '', sheet = null) {
   const result = [];
   let curUrl = '', curCat = '';
   let keywordCol = -1;
+  let productCols = null;
+  let sectionCat = '';
+  let carriedProductSerial = '';
+  let carriedProductKeyword = '';
+  const productGroups = new Map();
+
+  function addProductVariant(keyword, serial, variant, url, rowNumber) {
+    const keywordKey = normalizeKeywordKey(keyword);
+    if (!keywordKey || !url) return;
+    if (!productGroups.has(keywordKey)) {
+      productGroups.set(keywordKey, {
+        kw: keyword,
+        serial,
+        url,
+        urls: [],
+        cat: sectionCat || slugToCat(url),
+        rowNumber,
+        sheetName
+      });
+    }
+    const group = productGroups.get(keywordKey);
+    const urlKey = normalizeUrlKey(url);
+    if (!group.urls.some(entry => normalizeUrlKey(entry.url) === urlKey)) {
+      group.urls.push({ url, variant, rowNumber });
+    }
+    group.url = group.urls[0]?.url || group.url || url;
+  }
+
   rows.forEach((row, rowIndex) => {
+    const foundProductCols = productTableColumnsFromRow(row);
+    if (foundProductCols) {
+      productCols = foundProductCols;
+      carriedProductSerial = '';
+      carriedProductKeyword = '';
+      return;
+    }
+
+    if (isSectionTitleRow(row)) {
+      sectionCat = cleanKeywordText(row.find(Boolean));
+      return;
+    }
+
+    if (productCols) {
+      const cells = row.map(cell => cleanKeywordText(cell));
+      const rowUrl = extractCellUrl(cells[productCols.linkIndex], sheet, rowIndex, productCols.linkIndex);
+      const explicitSerial = cleanKeywordText(getRowCell(row, productCols.serialIndex));
+      const explicitKeyword = cells[productCols.keywordIndex] || '';
+      const variant = cleanKeywordText(getRowCell(row, productCols.variantIndex));
+      if (isSerialCell(explicitSerial)) carriedProductSerial = parseInt(explicitSerial.replace(/^#/, ''), 10);
+      if (isLikelyKeyword(explicitKeyword)) carriedProductKeyword = explicitKeyword;
+      const keyword = isLikelyKeyword(explicitKeyword) ? explicitKeyword : carriedProductKeyword;
+      const serial = carriedProductSerial || '';
+      if (rowUrl && keyword) {
+        addProductVariant(keyword, serial, variant, rowUrl, rowIndex + 1);
+        return;
+      }
+    }
+
     const foundKeywordCol = keywordColumnFromRow(row);
     if (foundKeywordCol >= 0) keywordCol = foundKeywordCol;
 
@@ -1400,7 +2275,7 @@ function parseSheet(rows, sheetName = '') {
     const keyword = keywordFromRow(row, keywordCol);
     if (keyword) result.push({ kw: keyword, url: curUrl, cat: curCat, rowNumber: rowIndex + 1, sheetName });
   });
-  return result;
+  return Array.from(productGroups.values()).concat(result);
 }
 
 function slugToCat(url) {
@@ -1420,10 +2295,21 @@ function showBanner(msg, isErr) {
   b.className = 'banner ' + (isErr ? 'err' : 'ok');
 }
 
-function rebuildUrlSel() {
+function rebuildUrlSel(urls = urlList, showDropdown = false) {
   const s = document.getElementById('url-sel');
+  const wrap = s?.closest('.url-select-wrap');
   s.innerHTML = '<option value="">— Auto-selected on keyword pick —</option>';
-  urlList.forEach(u => { const o = document.createElement('option'); o.value = u; o.textContent = u; s.appendChild(o); });
+  let optionCount = 0;
+  urls.forEach(entry => {
+    const value = typeof entry === 'string' ? entry : entry.url;
+    if (!value) return;
+    optionCount += 1;
+    const o = document.createElement('option');
+    o.value = value;
+    o.textContent = typeof entry === 'string' || !entry.variant ? value : `${entry.variant} · ${value}`;
+    s.appendChild(o);
+  });
+  if (wrap) wrap.classList.toggle('has-options', showDropdown && optionCount > 1);
 }
 
 function enableInputs() {
@@ -1553,9 +2439,9 @@ function buildDrop(value) {
   drop.innerHTML = list.map(item => {
     const safe = item.kw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     const safeJs = item.kw.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    let shortUrl = '';
-    try { shortUrl = new URL(item.url).pathname || '/'; } catch {}
-    return `<div class="kw-drop-item" onclick="pickKw('${safeJs}')"><span>${safe}</span><small>${shortUrl || item.cat || ''}</small></div>`;
+    const displayUrl = item.url || item.cat || '';
+    const safeDisplayUrl = String(displayUrl).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    return `<div class="kw-drop-item" onclick="pickKw('${safeJs}')"><span>${safe}</span><small>${safeDisplayUrl}</small></div>`;
   }).join('');
   drop.style.display = 'block';
 }
@@ -1574,14 +2460,17 @@ function applyKeywordState(kw, url, matchedItem = null, options = {}) {
     selItem = null;
     selUrl = '';
     document.getElementById('kw-chip').style.display = 'none';
+    rebuildUrlSel();
     document.getElementById('url-sel').value = '';
-    document.getElementById('url-prev').style.display = 'none';
+    setUrlPrev('');
     blankPrompt();
     return;
   }
 
-  const finalUrl = url || document.getElementById('url-sel').value || selUrl || urlList[0] || '';
-  selItem = matchedItem || { kw: cleanKw, url: finalUrl, cat: '' };
+  const itemUrls = matchedItem ? getKeywordUrls(matchedItem) : [];
+  if (matchedItem) rebuildUrlSel(itemUrls, itemUrls.length > 1);
+  const finalUrl = url || itemUrls[0]?.url || document.getElementById('url-sel').value || selUrl || urlList[0] || '';
+  selItem = matchedItem || { kw: cleanKw, url: finalUrl, urls: finalUrl ? [{ url: finalUrl }] : [], cat: '' };
   selUrl = finalUrl;
 
   document.getElementById('chip-kw').textContent = cleanKw;
@@ -1628,14 +2517,16 @@ function clearKw() {
   selItem = null; selUrl = '';
   document.getElementById('kw-in').value = '';
   document.getElementById('kw-chip').style.display = 'none';
+  rebuildUrlSel();
   document.getElementById('url-sel').value = '';
-  document.getElementById('url-prev').style.display = 'none';
+  setUrlPrev('');
   hideDrop();
   blankPrompt();
 }
 
 function onUrlChange() {
   selUrl = document.getElementById('url-sel').value;
+  if (selItem) selItem.url = selUrl;
   setUrlPrev(selUrl);
   if (selUrl) { brandName = parseBrand(selUrl); rootUrl = parseRoot(selUrl); }
   renderPrompt();
@@ -1643,8 +2534,39 @@ function onUrlChange() {
 
 function setUrlPrev(url) {
   const el = document.getElementById('url-prev');
+  const btn = document.getElementById('url-copy-btn');
   el.textContent = url || '';
-  el.style.display = url ? 'block' : 'none';
+  el.href = url || '#';
+  el.style.display = url ? 'inline-block' : 'none';
+  if (btn) btn.disabled = !url;
+}
+
+async function copyTargetUrl() {
+  const url = document.getElementById('url-sel').value || selUrl || '';
+  if (!url) return;
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(url);
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+    const btn = document.getElementById('url-copy-btn');
+    btn.textContent = 'Copied';
+    btn.classList.add('ok');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('ok');
+    }, 1600);
+  } catch {
+    showBanner('Could not copy target URL', true);
+  }
 }
 
 // ── Prompt ───────────────────────────────────────────────────────
